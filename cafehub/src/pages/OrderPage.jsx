@@ -15,10 +15,10 @@ function OrderPage({ orderItems, onUpdateQuantity, onRemove }) {
   }
 
   return (
-    <Container className="my-5">
-      <h2>Phiếu gọi món tạm</h2>
+    <Container className="my-4 my-md-5">
+      <h2 className="fs-3 fw-bold mb-4">🧾 Phiếu gọi món tạm</h2>
 
-      <Table bordered hover responsive>
+      <Table bordered hover responsive className="align-middle text-nowrap table-sm table-md shadow-sm">
         <thead>
           <tr>
             <th>Tên món</th>
@@ -64,7 +64,11 @@ function OrderPage({ orderItems, onUpdateQuantity, onRemove }) {
         </tbody>
       </Table>
 
-      <h4>Tổng tạm tính: {totalPrice.toLocaleString('vi-VN')}đ</h4>
+      <div className="d-flex justify-content-end mt-4">
+        <h4 className="fs-4 fw-bold">
+          Tổng tạm tính: <span className="text-danger">{totalPrice.toLocaleString('vi-VN')}đ</span>
+        </h4>
+      </div>
     </Container>
   )
 }

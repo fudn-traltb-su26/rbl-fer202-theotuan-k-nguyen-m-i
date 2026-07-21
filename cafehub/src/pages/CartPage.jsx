@@ -21,20 +21,20 @@ function CartPage() {
   }
 
   return (
-    <Container className="my-5">
-      <div className="d-flex justify-content-between align-items-center mb-4">
-        <h2 className="mb-0">
-          Giỏ hàng{' '}
-          <Badge bg="dark" pill>
+    <Container className="my-4 my-md-5">
+      <div className="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center gap-2 mb-4">
+        <h2 className="mb-0 fs-3 fw-bold">
+          🛒 Giỏ hàng{' '}
+          <Badge bg="warning" text="dark" pill className="fs-6">
             {itemCount} món
           </Badge>
         </h2>
-        <Button variant="outline-danger" size="sm" onClick={clearCart}>
-          Xóa tất cả
+        <Button variant="outline-danger" size="sm" onClick={clearCart} className="align-self-end align-self-sm-auto">
+          ✕ Xóa tất cả
         </Button>
       </div>
 
-      <Table bordered hover responsive className="align-middle">
+      <Table bordered hover responsive className="align-middle text-nowrap table-sm table-md shadow-sm">
         <thead className="table-dark">
           <tr>
             <th>Tên món</th>
@@ -86,15 +86,15 @@ function CartPage() {
       </Table>
 
       {/* Tổng cộng */}
-      <div className="d-flex justify-content-end">
-        <div className="text-end">
-          <h4 className="mb-3">
+      <div className="d-flex justify-content-end mt-4">
+        <div className="text-end w-100 w-sm-auto">
+          <h4 className="mb-3 fs-4 fw-bold">
             Tổng tạm tính:{' '}
             <span className="text-danger">
               {totalAmount.toLocaleString('vi-VN')}đ
             </span>
           </h4>
-          <Button variant="dark" size="lg">
+          <Button variant="dark" size="lg" className="w-100 px-4 fw-bold shadow-sm">
             Xác nhận đặt hàng ✓
           </Button>
         </div>

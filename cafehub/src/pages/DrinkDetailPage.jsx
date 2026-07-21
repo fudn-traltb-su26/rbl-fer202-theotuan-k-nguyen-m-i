@@ -103,10 +103,11 @@ function DrinkDetailPage({ onAddToOrder }) {
           </p>
 
           {/* Action buttons */}
-          <div className="d-flex gap-3 flex-wrap">
+          <div className="d-grid gap-2 d-sm-flex flex-wrap">
             <Button
               variant="dark"
               size="lg"
+              className="px-4 fw-bold shadow-sm"
               onClick={() => {
                 if (onAddToOrder) onAddToOrder(drink)
                 addToCart(drink)
@@ -117,7 +118,7 @@ function DrinkDetailPage({ onAddToOrder }) {
             </Button>
 
             {/* useNavigate(-1) — Tuần 6 */}
-            <Button variant="outline-secondary" size="lg" onClick={() => navigate(-1)}>
+            <Button variant="outline-secondary" size="lg" className="px-4" onClick={() => navigate(-1)}>
               ← Quay lại
             </Button>
           </div>

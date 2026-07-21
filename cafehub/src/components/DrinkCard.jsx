@@ -28,23 +28,15 @@ function DrinkCard({ drink, onAddToOrder }) {
   }
 
   return (
-    <Card className="h-100 shadow-sm" style={{ transition: 'transform 0.2s, box-shadow 0.2s' }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.transform = 'translateY(-4px)'
-        e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.12)'
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.transform = 'translateY(0)'
-        e.currentTarget.style.boxShadow = ''
-      }}
-    >
+    <Card className="h-100 shadow-sm border-0 bg-body w-100">
       {/* Ảnh đồ uống */}
       <div style={{ position: 'relative' }}>
         {/* Badge giảm giá */}
         {hasDiscount && (
           <Badge
             bg="danger"
-            style={{ position: 'absolute', top: 8, left: 8, zIndex: 1 }}
+            className="position-absolute top-0 start-0 m-2 shadow-sm"
+            style={{ zIndex: 1 }}
           >
             -{discountPercent}%
           </Badge>
@@ -54,7 +46,8 @@ function DrinkCard({ drink, onAddToOrder }) {
         {isOutOfStock && (
           <Badge
             bg="secondary"
-            style={{ position: 'absolute', top: 8, right: 8, zIndex: 1 }}
+            className="position-absolute top-0 end-0 m-2 shadow-sm"
+            style={{ zIndex: 1 }}
           >
             Hết hàng
           </Badge>
@@ -65,68 +58,76 @@ function DrinkCard({ drink, onAddToOrder }) {
           src={`https://picsum.photos/seed/drink${drink.id}/300/200`}
           alt={drink.name}
           loading="lazy"
-          style={{ height: '180px', objectFit: 'cover' }}
+          className="drink-card-img"
         />
       </div>
 
-      <Card.Body className="d-flex flex-column">
+      <Card.Body className="d-flex flex-column p-2 p-md-3">
         {/* Category badge */}
-        <Badge bg="info" className="mb-2 align-self-start">
-          Danh mục #{drink.categoryId}
-        </Badge>
+        <div className="d-flex justify-content-between align-items-center mb-1">
+          <Badge bg="info" className="mobile-fs-sm opacity-75">
+            #{drink.categoryId}
+          </Badge>
+          <span className="small text-warning fw-bold mobile-fs-sm">
+            ⭐ {drink.rating}
+          </span>
+        </div>
 
-        <Card.Title className="fs-6 fw-semibold">{drink.name}</Card.Title>
-        <Card.Text className="text-muted small flex-grow-1">
+        <Card.Title className="fs-6 fw-bold mb-1 text-truncate" title={drink.name}>
+          {drink.name}
+        </Card.Title>
+        
+        <Card.Text className="text-muted small flex-grow-1 d-none d-sm-block mb-2">
           {drink.description}
         </Card.Text>
 
         {/* Giá */}
         <div className="mb-2">
-          <strong className="text-danger fs-6">
+          <strong className="text-danger fs-6 mobile-fs-sm">
             {drink.price.toLocaleString('vi-VN')}đ
           </strong>{' '}
           {hasDiscount && (
-            <small className="text-decoration-line-through text-muted">
+            <small className="text-decoration-line-through text-muted ms-1">
               {drink.originalPrice.toLocaleString('vi-VN')}đ
             </small>
           )}
         </div>
 
-        {/* Rating + stock */}
-        <div className="mb-3 small text-muted">
-          ⭐ {drink.rating} &nbsp;|&nbsp;{' '}
+        {/* Stock */}
+        <div className="mb-2 small text-muted d-none d-sm-block">
           {isOutOfStock ? (
-            <span className="text-danger">Hết hàng</span>
+            <span className="text-danger">❌ Hết hàng</span>
           ) : (
-            <span className="text-success">Còn {drink.stock}</span>
+            <span className="text-success">✅ Còn {drink.stock} phần</span>
           )}
         </div>
 
-        {/* Action buttons — Tuần 9: thêm nút Wishlist ❤️ */}
-        <div className="d-flex gap-2 mt-auto">
-          {/* Tuần 9: Nút Wishlist — toggle lưu vào localStorage */}
-          <Button
-            variant={isWishlisted ? 'danger' : 'outline-danger'}
-            size="sm"
-            onClick={toggleWishlist}
-            title={isWishlisted ? 'Xóa khỏi yêu thích' : 'Thêm vào yêu thích'}
-          >
-            {isWishlisted ? '❤️' : '🤍'}
-          </Button>
-
-          <Button
-            variant="outline-dark"
-            size="sm"
-            as={Link}
-            to={`/menu/${drink.id}`}
-          >
-            Chi tiết
-          </Button>
-
+        {/* Action buttons — Tối ưu tuyệt đối cho mobile column 170px */}
+        <div className="d-flex flex-column flex-sm-row gap-1 gap-sm-2 mt-auto pt-2 border-top border-secondary-subtle">
+          <div className="d-flex gap-1 w-100 w-sm-auto justify-content-between">
+            <Button
+              variant={isWishlisted ? 'danger' : 'outline-danger'}
+              size="sm"
+              onClick={toggleWishlist}
+              title={isWishlisted ? 'Xóa khỏi yêu thích' : 'Thêm vào yêu thích'}
+              className="px-2"
+            >
+              {isWishlisted ? '❤️' : '🤍'}
+            </Button>
+            <Button
+              variant="outline-dark"
+              size="sm"
+              as={Link}
+              to={`/menu/${drink.id}`}
+              className="flex-grow-1 flex-sm-grow-0 text-truncate px-2"
+            >
+              Chi tiết
+            </Button>
+          </div>
           <Button
             variant="dark"
             size="sm"
-            className="flex-grow-1"
+            className="w-100 flex-sm-grow-1 mt-1 mt-sm-0 text-truncate fw-semibold"
             onClick={() => {
               if (onAddToOrder) onAddToOrder(drink)
               addToCart(drink)

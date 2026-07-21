@@ -1,5 +1,5 @@
 /* =============================
-   CafeHub — Global Styles
+   CafeHub — Global Styles & Responsive Polish
    Ghi đè index.css mặc định của Vite
    ============================= */
 
@@ -22,26 +22,72 @@ main {
 
 /* Dark mode — Bootstrap dùng data-bs-theme trên <html> */
 [data-bs-theme="dark"] {
-  --bs-body-bg: #1a1a2e;
-  --bs-body-color: #e0e0e0;
+  --bs-body-bg: #12141d;
+  --bs-body-color: #e2e8f0;
 }
 
 [data-bs-theme="dark"] .bg-light,
 [data-bs-theme="dark"] section {
-  background-color: #16213e !important;
+  background-color: #1a1e2e !important;
+  color: #e2e8f0;
 }
 
-/* Smooth scroll */
+[data-bs-theme="dark"] .card {
+  background-color: #23283b !important;
+  border-color: #333a54 !important;
+  color: #f1f5f9;
+}
+
+[data-bs-theme="dark"] .text-muted {
+  color: #94a3b8 !important;
+}
+
+/* Smooth scroll & Tap highlights */
 html {
   scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
 }
 
-/* Sticky top navbar — tránh content bị che */
 body {
   padding-top: 0;
+  overflow-x: hidden;
 }
 
-/* Card hover — đảm bảo transition mượt */
+/* Card hover & transition */
 .card {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* --- Responsive Helpers cho Mobile View --- */
+
+/* Responsive ảnh DrinkCard: trên mobile (xs=2) chiều cao gọn lại để thẻ cân đối */
+.drink-card-img {
+  height: 180px;
+  object-fit: cover;
+  width: 100%;
+}
+
+@media (max-width: 575.98px) {
+  .drink-card-img {
+    height: 135px !important;
+  }
+  
+  /* Giảm size chữ tiêu đề thẻ trên màn nhỏ */
+  .mobile-fs-sm {
+    font-size: 0.85rem !important;
+  }
+  
+  /* Bảng trên mobile cho phép cuộn mượt */
+  .table-responsive {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Gradient Banner chất lượng cao */
+.banner-gradient {
+  background: linear-gradient(135deg, #1f1107 0%, #3e2723 50%, #6d4c41 100%);
+}
+
+[data-bs-theme="dark"] .banner-gradient {
+  background: linear-gradient(135deg, #0d0703 0%, #201311 50%, #3e2723 100%);
 }

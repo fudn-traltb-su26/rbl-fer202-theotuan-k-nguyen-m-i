@@ -25,7 +25,7 @@ const SearchBar = forwardRef(function SearchBar({ onSearch }, ref) {
     if (onSearch) onSearch('')
   }
 
-  // Real-time search khi gõ (không cần submit)
+  // Real-time search khi gõ
   const handleChange = (e) => {
     const value = e.target.value
     setKeyword(value)
@@ -36,29 +36,35 @@ const SearchBar = forwardRef(function SearchBar({ onSearch }, ref) {
   }
 
   return (
-    <Form onSubmit={handleSubmit} className="mb-3">
-      <InputGroup>
-        {/* Tuần 7: ref được chuyển vào Form.Control input */}
+    <Form onSubmit={handleSubmit} className="mb-3 mb-md-4">
+      <InputGroup className="shadow-sm">
         <Form.Control
           ref={ref}
           value={keyword}
           onChange={handleChange}
-          placeholder="🔍 Tìm món trong thực đơn..."
+          placeholder="🔍 Tìm món theo tên..."
+          className="py-2"
         />
 
-        <Button type="submit" variant="dark">
+        <Button type="submit" variant="dark" className="px-3 px-md-4 fw-semibold">
           Tìm
         </Button>
 
         {keyword && (
-          <Button type="button" variant="outline-secondary" onClick={handleClear}>
-            ✕ Xóa
+          <Button
+            type="button"
+            variant="outline-secondary"
+            onClick={handleClear}
+            className="px-2 px-md-3"
+            title="Xóa tìm kiếm"
+          >
+            ✕
           </Button>
         )}
       </InputGroup>
 
       {error && (
-        <Alert variant="danger" className="mt-2 py-2 small">
+        <Alert variant="danger" className="mt-2 py-2 small mb-0">
           {error}
         </Alert>
       )}

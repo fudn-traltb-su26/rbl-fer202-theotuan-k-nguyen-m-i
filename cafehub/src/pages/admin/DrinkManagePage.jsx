@@ -158,15 +158,15 @@ function DrinkManagePage() {
 
   // --- Render ---
   return (
-    <Container className="my-5">
-      <div className="d-flex justify-content-between align-items-center mb-4">
+    <Container className="my-4 my-md-5">
+      <div className="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center gap-3 mb-4">
         <div>
-          <h2 className="mb-0">☕ Quản lý thực đơn</h2>
+          <h2 className="mb-0 fs-3 fw-bold">☕ Quản lý thực đơn</h2>
           <small className="text-muted">
             Thêm, chỉnh sửa, xóa đồ uống trong hệ thống
           </small>
         </div>
-        <Button variant="dark" onClick={handleOpenAdd}>
+        <Button variant="dark" onClick={handleOpenAdd} className="w-100 w-sm-auto fw-bold px-3 shadow-sm">
           + Thêm món mới
         </Button>
       </div>
@@ -196,7 +196,7 @@ function DrinkManagePage() {
 
       {/* Bảng danh sách */}
       {!loading && !error && (
-        <Table bordered hover responsive className="align-middle">
+        <Table bordered hover responsive className="align-middle text-nowrap table-sm table-md shadow-sm">
           <thead className="table-dark">
             <tr>
               <th>ID</th>

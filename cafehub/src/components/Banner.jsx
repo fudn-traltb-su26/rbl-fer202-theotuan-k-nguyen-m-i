@@ -3,35 +3,28 @@ import { Link } from 'react-router-dom'
 
 function Banner() {
   return (
-    <div
-      style={{
-        background: 'linear-gradient(135deg, #1a0a00 0%, #3e2723 40%, #8d6e63 100%)',
-        color: 'white',
-        padding: '80px 0',
-        textAlign: 'center',
-      }}
-    >
-      <Container>
-        <p className="text-warning fw-semibold mb-2 fs-6 text-uppercase letter-spacing-1">
+    <div className="banner-gradient text-white text-center py-4 py-md-5">
+      <Container className="py-2 py-md-4">
+        <p className="text-warning fw-semibold mb-2 small text-uppercase" style={{ letterSpacing: '1px' }}>
           ☕ Chào mừng đến với
         </p>
         <h1
-          className="display-4 fw-bold mb-3"
-          style={{ textShadow: '0 2px 8px rgba(0,0,0,0.4)' }}
+          className="fs-1 display-md-4 fw-bold mb-3"
+          style={{ textShadow: '0 2px 8px rgba(0,0,0,0.5)' }}
         >
           CafeHub
         </h1>
-        <p className="lead mb-4 opacity-75">
-          Hệ thống quản lý thực đơn quán cà phê — Thưởng thức không gian tuyệt vời
+        <p className="lead mb-4 opacity-75 fs-6 fs-md-5 mx-auto" style={{ maxWidth: '650px' }}>
+          Hệ thống quản lý thực đơn quán cà phê — Thức uống thượng hạng, không gian tuyệt vời
         </p>
 
-        <div className="d-flex gap-3 justify-content-center flex-wrap">
+        <div className="d-grid gap-2 d-sm-flex justify-content-center mx-auto" style={{ maxWidth: '400px' }}>
           <Button
             as={Link}
             to="/menu"
             variant="warning"
             size="lg"
-            className="px-4 fw-semibold"
+            className="px-4 fw-bold shadow-sm"
           >
             Xem thực đơn →
           </Button>
