@@ -1,305 +1,371 @@
 {
   "categories": [
-    {
-      "id": 1,
-      "name": "Cà phê",
-      "icon": "☕"
-    },
-    {
-      "id": 2,
-      "name": "Trà sữa",
-      "icon": "🧋"
-    },
-    {
-      "id": 3,
-      "name": "Trà trái cây",
-      "icon": "🍹"
-    },
-    {
-      "id": 4,
-      "name": "Đá xay",
-      "icon": "🥤"
-    },
-    {
-      "id": 5,
-      "name": "Nước ép",
-      "icon": "🍊"
-    }
+    { "id": 1, "name": "Cà phê", "icon": "☕", "bookCount": 6 },
+    { "id": 2, "name": "Trà sữa", "icon": "🧋", "bookCount": 6 },
+    { "id": 3, "name": "Trà trái cây", "icon": "🍹", "bookCount": 6 },
+    { "id": 4, "name": "Đá xay", "icon": "🥤", "bookCount": 6 },
+    { "id": 5, "name": "Nước ép", "icon": "🍊", "bookCount": 6 }
   ],
   "drinks": [
     {
       "id": 1,
       "name": "Cà Phê Đen",
+      "description": "Cà phê nguyên chất đậm đà, đắng nhẹ và thơm nồng — lựa chọn của những người yêu cà phê truyền thống.",
       "price": 25000,
+      "originalPrice": 30000,
       "categoryId": 1,
       "rating": 4.5,
       "stock": 50,
-      "featured": true
+      "featured": true,
+      "status": "available"
     },
     {
       "id": 2,
       "name": "Cà Phê Sữa",
+      "description": "Cà phê truyền thống kết hợp sữa đặc thơm béo, hòa quyện tạo vị ngọt dịu đặc trưng.",
       "price": 30000,
+      "originalPrice": 35000,
       "categoryId": 1,
       "rating": 4.8,
       "stock": 40,
-      "featured": true
+      "featured": true,
+      "status": "available"
     },
     {
       "id": 3,
       "name": "Bạc Xỉu",
+      "description": "Vị sữa béo nhẹ hòa quyện cùng cà phê — ít đắng hơn cà phê sữa, thích hợp cho người mới uống.",
       "price": 35000,
+      "originalPrice": 40000,
       "categoryId": 1,
       "rating": 4.7,
       "stock": 35,
-      "featured": true
+      "featured": true,
+      "status": "available"
     },
     {
       "id": 4,
       "name": "Americano",
+      "description": "Espresso pha loãng với nước nóng, vị đậm nhưng nhẹ hơn espresso thuần túy.",
       "price": 40000,
+      "originalPrice": 40000,
       "categoryId": 1,
       "rating": 4.4,
       "stock": 30,
-      "featured": false
+      "featured": false,
+      "status": "available"
     },
     {
       "id": 5,
       "name": "Latte",
+      "description": "Espresso kết hợp sữa hấp nóng và một lớp bọt sữa mịn màng — thanh tế và béo ngậy.",
       "price": 45000,
+      "originalPrice": 50000,
       "categoryId": 1,
       "rating": 4.6,
       "stock": 25,
-      "featured": true
+      "featured": true,
+      "status": "available"
     },
     {
       "id": 6,
       "name": "Cappuccino",
+      "description": "Sự kết hợp hoàn hảo giữa espresso, sữa hấp và bọt sữa — thơm béo và đậm đà.",
       "price": 45000,
+      "originalPrice": 45000,
       "categoryId": 1,
       "rating": 4.5,
       "stock": 20,
-      "featured": false
+      "featured": false,
+      "status": "available"
     },
-
     {
       "id": 7,
       "name": "Trà Sữa Trân Châu",
+      "description": "Trà sữa thơm béo kèm trân châu đen dai ngon — thức uống quốc dân không thể bỏ qua.",
       "price": 45000,
+      "originalPrice": 50000,
       "categoryId": 2,
       "rating": 4.9,
       "stock": 50,
-      "featured": true
+      "featured": true,
+      "status": "available"
     },
     {
       "id": 8,
       "name": "Trà Sữa Matcha",
+      "description": "Matcha Nhật Bản thơm ngậy hòa quyện với sữa tươi — vị đắng nhẹ đặc trưng rất khác biệt.",
       "price": 50000,
+      "originalPrice": 55000,
       "categoryId": 2,
       "rating": 4.8,
       "stock": 40,
-      "featured": true
+      "featured": true,
+      "status": "available"
     },
     {
       "id": 9,
       "name": "Trà Sữa Socola",
+      "description": "Trà sữa với vị socola đậm đà, ngọt thơm — lý tưởng cho người thích hương vị ngọt ngào.",
       "price": 50000,
+      "originalPrice": 50000,
       "categoryId": 2,
       "rating": 4.6,
       "stock": 35,
-      "featured": false
+      "featured": false,
+      "status": "available"
     },
     {
       "id": 10,
       "name": "Trà Sữa Dâu",
+      "description": "Trà sữa thơm với vị dâu tươi tự nhiên — màu hồng bắt mắt, vị ngọt thanh.",
       "price": 48000,
+      "originalPrice": 55000,
       "categoryId": 2,
       "rating": 4.7,
       "stock": 25,
-      "featured": false
+      "featured": false,
+      "status": "available"
     },
     {
       "id": 11,
       "name": "Trà Sữa Khoai Môn",
+      "description": "Vị khoai môn béo bùi hòa quyện sữa thơm — thức uống hot trend được giới trẻ yêu thích.",
       "price": 50000,
+      "originalPrice": 55000,
       "categoryId": 2,
       "rating": 4.5,
       "stock": 20,
-      "featured": false
+      "featured": false,
+      "status": "available"
     },
     {
       "id": 12,
       "name": "Trà Sữa Olong",
+      "description": "Olong hảo hạng kết hợp sữa tươi — vị trà đậm, hương thơm dịu nhẹ, thanh tao.",
       "price": 47000,
+      "originalPrice": 47000,
       "categoryId": 2,
       "rating": 4.4,
       "stock": 18,
-      "featured": false
+      "featured": false,
+      "status": "available"
     },
-
     {
       "id": 13,
       "name": "Trà Đào Cam Sả",
+      "description": "Trà trái cây thanh mát, thơm mùi sả — sự kết hợp hoàn hảo giữa đào, cam và sả tươi.",
       "price": 45000,
+      "originalPrice": 50000,
       "categoryId": 3,
       "rating": 4.8,
       "stock": 40,
-      "featured": true
+      "featured": true,
+      "status": "available"
     },
     {
       "id": 14,
       "name": "Trà Vải",
+      "description": "Trà vải thơm mát với vị ngọt tự nhiên của vải thiều — thanh tao và giải khát hoàn hảo.",
       "price": 42000,
+      "originalPrice": 45000,
       "categoryId": 3,
       "rating": 4.6,
       "stock": 35,
-      "featured": false
+      "featured": false,
+      "status": "available"
     },
     {
       "id": 15,
       "name": "Trà Chanh",
+      "description": "Trà chanh chua ngọt sảng khoái — thức uống giải nhiệt tuyệt vời ngày hè oi bức.",
       "price": 30000,
+      "originalPrice": 30000,
       "categoryId": 3,
       "rating": 4.3,
       "stock": 50,
-      "featured": false
+      "featured": false,
+      "status": "available"
     },
     {
       "id": 16,
       "name": "Trà Dâu",
+      "description": "Trà dâu tươi ngọt mát với màu đỏ hấp dẫn — vị chua ngọt tự nhiên từ dâu tây tươi.",
       "price": 45000,
+      "originalPrice": 50000,
       "categoryId": 3,
       "rating": 4.7,
       "stock": 25,
-      "featured": true
+      "featured": true,
+      "status": "available"
     },
     {
       "id": 17,
       "name": "Trà Xoài",
+      "description": "Trà xoài thơm ngọt đậm đà — hương xoài chín tự nhiên hòa quyện với trà xanh mát lạnh.",
       "price": 45000,
+      "originalPrice": 48000,
       "categoryId": 3,
       "rating": 4.7,
       "stock": 25,
-      "featured": false
+      "featured": false,
+      "status": "available"
     },
     {
       "id": 18,
       "name": "Trà Tắc Mật Ong",
+      "description": "Tắc tươi kết hợp mật ong nguyên chất — vị chua ngọt thanh mát, tốt cho sức khỏe.",
       "price": 35000,
+      "originalPrice": 38000,
       "categoryId": 3,
       "rating": 4.5,
       "stock": 20,
-      "featured": false
+      "featured": false,
+      "status": "available"
     },
-
     {
       "id": 19,
       "name": "Chocolate Đá Xay",
+      "description": "Socola đậm đà xay mịn với đá bào — béo ngậy, ngọt thơm, giải nhiệt cực đỉnh.",
       "price": 55000,
+      "originalPrice": 60000,
       "categoryId": 4,
       "rating": 4.8,
       "stock": 20,
-      "featured": true
+      "featured": true,
+      "status": "available"
     },
     {
       "id": 20,
       "name": "Cookie Đá Xay",
+      "description": "Cookie oreo xay nhuyễn với kem sữa mượt mà — vị ngọt béo không thể cưỡng được.",
       "price": 58000,
+      "originalPrice": 65000,
       "categoryId": 4,
       "rating": 4.9,
       "stock": 18,
-      "featured": true
+      "featured": true,
+      "status": "available"
     },
     {
       "id": 21,
       "name": "Matcha Đá Xay",
+      "description": "Matcha thơm béo, mát lạnh — đắng nhẹ đặc trưng của matcha hòa quyện với kem sữa.",
       "price": 55000,
+      "originalPrice": 60000,
       "categoryId": 4,
       "rating": 4.7,
       "stock": 15,
-      "featured": false
+      "featured": false,
+      "status": "available"
     },
     {
       "id": 22,
       "name": "Caramel Đá Xay",
+      "description": "Caramel ngọt thơm xay mịn với đá — hương caramel nồng nàn, vị ngọt ngào quyến rũ.",
       "price": 58000,
+      "originalPrice": 62000,
       "categoryId": 4,
       "rating": 4.8,
       "stock": 15,
-      "featured": false
+      "featured": false,
+      "status": "available"
     },
     {
       "id": 23,
       "name": "Mocha Đá Xay",
+      "description": "Cà phê mocha đậm đà kết hợp đá xay — vị đắng cà phê và ngọt socola hài hòa tuyệt vời.",
       "price": 60000,
+      "originalPrice": 65000,
       "categoryId": 4,
       "rating": 4.6,
       "stock": 12,
-      "featured": false
+      "featured": false,
+      "status": "available"
     },
     {
       "id": 24,
       "name": "Oreo Đá Xay",
+      "description": "Bánh oreo giòn tan xay nhuyễn với sữa lạnh — thơm béo, ngọt nhẹ, cực kỳ hấp dẫn.",
       "price": 58000,
+      "originalPrice": 62000,
       "categoryId": 4,
       "rating": 4.8,
       "stock": 15,
-      "featured": true
+      "featured": true,
+      "status": "available"
     },
-
     {
       "id": 25,
       "name": "Nước Ép Cam",
+      "description": "Cam tươi ép nguyên chất — giàu vitamin C, thanh mát và tốt cho sức đề kháng.",
       "price": 40000,
+      "originalPrice": 45000,
       "categoryId": 5,
       "rating": 4.5,
       "stock": 25,
-      "featured": false
+      "featured": false,
+      "status": "available"
     },
     {
       "id": 26,
       "name": "Nước Ép Dưa Hấu",
+      "description": "Dưa hấu tươi ép lạnh — ngọt mát tự nhiên, giải khát tức thì trong ngày hè.",
       "price": 40000,
+      "originalPrice": 42000,
       "categoryId": 5,
       "rating": 4.6,
       "stock": 20,
-      "featured": false
+      "featured": false,
+      "status": "available"
     },
     {
       "id": 27,
       "name": "Nước Ép Táo",
+      "description": "Táo xanh ép tươi nguyên chất — vị chua ngọt thanh tao, giàu dưỡng chất tốt cho sức khỏe.",
       "price": 45000,
+      "originalPrice": 48000,
       "categoryId": 5,
       "rating": 4.5,
       "stock": 18,
-      "featured": false
+      "featured": false,
+      "status": "available"
     },
     {
       "id": 28,
       "name": "Nước Ép Dứa",
+      "description": "Dứa tươi ép lạnh — vị chua ngọt đặc trưng, thơm phức và giải nhiệt rất tốt.",
       "price": 42000,
+      "originalPrice": 45000,
       "categoryId": 5,
       "rating": 4.4,
       "stock": 15,
-      "featured": false
+      "featured": false,
+      "status": "available"
     },
     {
       "id": 29,
       "name": "Nước Ép Cà Rốt",
+      "description": "Cà rốt tươi ép nguyên chất — ngọt nhẹ tự nhiên, giàu beta-carotene tốt cho mắt.",
       "price": 45000,
+      "originalPrice": 48000,
       "categoryId": 5,
       "rating": 4.3,
       "stock": 12,
-      "featured": false
+      "featured": false,
+      "status": "available"
     },
     {
       "id": 30,
       "name": "Nước Ép Hỗn Hợp",
+      "description": "Cocktail trái cây tươi hỗn hợp — cam, táo, cà rốt, dứa kết hợp tạo hương vị độc đáo.",
       "price": 50000,
+      "originalPrice": 55000,
       "categoryId": 5,
       "rating": 4.7,
       "stock": 10,
-      "featured": true
+      "featured": true,
+      "status": "available"
     }
   ]
 }
