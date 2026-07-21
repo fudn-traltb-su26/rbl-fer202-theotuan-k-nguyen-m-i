@@ -1,9 +1,13 @@
+import { useState } from 'react'
 import { Container, Table, Button, Alert, Badge } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
+import CheckoutModal from '../components/CheckoutModal'
 
 function CartPage() {
   const { cart, removeFromCart, updateQuantity, totalAmount, clearCart, itemCount } = useCart()
+  const [showCheckout, setShowCheckout] = useState(false)
+
 
   if (cart.length === 0) {
     return (
@@ -102,13 +106,22 @@ function CartPage() {
           <button
             type="button"
             className="btn-premium-amber w-100 py-3 fs-6 d-flex align-items-center justify-content-center gap-2"
-            onClick={() => alert('Đã gửi xác nhận đơn hàng thành công! Cảm ơn bạn đã lựa chọn CafeHub ☕')}
+            onClick={() => setShowCheckout(true)}
           >
             <span>Xác nhận đặt hàng ngay</span>
             <span>✓</span>
           </button>
         </div>
       </div>
+
+      <CheckoutModal
+        show={showCheckout}
+        onHide={() => setShowCheckout(false)}
+        items={cart}
+        total={totalAmount}
+        isKitchenOrder={false}
+        onConfirmComplete={clearCart}
+      />
     </Container>
   )
 }

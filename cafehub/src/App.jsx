@@ -5,6 +5,7 @@ import { Spinner, Container } from 'react-bootstrap'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import ProtectedRoute from './components/ProtectedRoute'
+import CartNotification from './components/CartNotification'
 
 // Tuần 10: React.lazy — code splitting theo route
 // Mỗi page chỉ được tải khi user navigate đến route đó (không load trước)
@@ -69,6 +70,7 @@ function App() {
     <>
       {/* Header — Tuần 7: useCart() context, không cần props */}
       <Header />
+      <CartNotification />
 
       <main>
         {/* Tuần 10: Suspense bọc quanh Routes để hiển thị fallback khi lazy load */}
@@ -97,6 +99,7 @@ function App() {
                   orderItems={orderItems}
                   onUpdateQuantity={handleUpdateQuantity}
                   onRemove={handleRemove}
+                  onClearOrder={() => setOrderItems([])}
                 />
               }
             />

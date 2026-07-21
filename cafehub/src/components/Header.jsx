@@ -10,6 +10,16 @@ function Header() {
   const { itemCount } = useCart()
   const { theme, toggleTheme } = useTheme()
   const [expanded, setExpanded] = useState(false)
+  const [pulsing, setPulsing] = useState(false)
+
+  useEffect(() => {
+    const handleAdd = () => {
+      setPulsing(true)
+      setTimeout(() => setPulsing(false), 600)
+    }
+    window.addEventListener('cart-item-added', handleAdd)
+    return () => window.removeEventListener('cart-item-added', handleAdd)
+  }, [])
 
   // Tuần 7: useEffect cập nhật tab title theo số lượng món
   useEffect(() => {
@@ -123,15 +133,17 @@ function Header() {
               className="py-2 py-lg-1 px-3 rounded-pill d-flex align-items-center gap-2 fw-bold text-warning transition-all"
               style={{
                 background: isDark ? 'rgba(255, 179, 0, 0.12)' : 'rgba(255, 179, 0, 0.18)',
-                border: '1px solid rgba(255, 179, 0, 0.3)',
+                border: pulsing ? '1.5px solid #ffb300' : '1px solid rgba(255, 179, 0, 0.3)',
+                transform: pulsing ? 'scale(1.12)' : 'scale(1)',
+                boxShadow: pulsing ? '0 0 20px rgba(255, 179, 0, 0.7)' : 'none',
               }}
             >
               <span>🛒 Giỏ hàng</span>
               <Badge
-                bg="warning"
-                text="dark"
+                bg={pulsing ? 'danger' : 'warning'}
+                text={pulsing ? 'white' : 'dark'}
                 pill
-                className="px-2 py-1 fw-bold fs-6 shadow-sm"
+                className="px-2 py-1 fw-bold fs-6 shadow-sm transition-all"
               >
                 {itemCount}
               </Badge>

@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Card, Button, Badge } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 // Tuần 9: useLocalStorage cho tính năng Wishlist ❤️
@@ -7,6 +8,8 @@ import { useCart } from '../context/CartContext'
 
 function DrinkCard({ drink, onAddToOrder }) {
   const { addToCart } = useCart()
+  const [added, setAdded] = useState(false)
+
 
   const hasDiscount = drink.originalPrice > drink.price
   const discountPercent = hasDiscount
@@ -61,7 +64,7 @@ function DrinkCard({ drink, onAddToOrder }) {
 
         <Card.Img
           variant="top"
-          src={`https://picsum.photos/seed/drink${drink.id}/300/200`}
+          src={drink.image || `https://picsum.photos/seed/drink${drink.id}/300/200`}
           alt={drink.name}
           loading="lazy"
           className="drink-card-img"
@@ -137,19 +140,28 @@ function DrinkCard({ drink, onAddToOrder }) {
           </div>
           <button
             type="button"
-            className={`w-100 flex-sm-grow-1 mt-1 mt-sm-0 text-truncate font-heading small ${
-              isOutOfStock ? 'btn btn-secondary rounded-pill disabled' : 'btn-premium-amber'
+            className={`w-100 flex-sm-grow-1 mt-1 mt-sm-0 text-truncate font-heading small transition-all ${
+              isOutOfStock
+                ? 'btn btn-secondary rounded-pill disabled'
+                : added
+                ? 'btn btn-success rounded-pill fw-bold text-white shadow'
+                : 'btn-premium-amber'
             }`}
             style={{ padding: '6px 14px', fontSize: '0.85rem' }}
             onClick={() => {
               if (!isOutOfStock) {
                 if (onAddToOrder) onAddToOrder(drink)
                 addToCart(drink)
+                setAdded(true)
+                window.dispatchEvent(
+                  new CustomEvent('cart-item-added', { detail: drink })
+                )
+                setTimeout(() => setAdded(false), 1600)
               }
             }}
             disabled={isOutOfStock}
           >
-            {isOutOfStock ? 'Hết hàng' : '+ Gọi món'}
+            {isOutOfStock ? 'Hết hàng' : added ? '✓ Đã thêm (+1)' : '+ Gọi món'}
           </button>
         </div>
       </Card.Body>

@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Button, Container, Row, Col, Alert, Badge, Breadcrumb } from 'react-bootstrap'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import drinks from '../data/drinks'
@@ -9,6 +10,8 @@ function DrinkDetailPage({ onAddToOrder }) {
   const navigate = useNavigate()
   const { addToCart } = useCart()
   const [wishlist, setWishlist] = useLocalStorage('cafehub_wishlist', [])
+  const [added, setAdded] = useState(false)
+
 
   const drink = drinks.find((item) => item.id === parseInt(id))
 
@@ -73,7 +76,7 @@ function DrinkDetailPage({ onAddToOrder }) {
               </Badge>
             )}
             <img
-              src={`https://picsum.photos/seed/drink${drink.id}/600/450`}
+              src={drink.image || `https://picsum.photos/seed/drink${drink.id}/600/450`}
               alt={drink.name}
               loading="lazy"
               className="img-fluid w-100 transition-transform"
@@ -139,19 +142,32 @@ function DrinkDetailPage({ onAddToOrder }) {
 
             <button
               type="button"
-              className={`flex-grow-1 font-heading fs-5 fw-bold ${
-                isOutOfStock ? 'btn btn-secondary rounded-pill disabled' : 'btn-premium-amber'
+              className={`flex-grow-1 font-heading fs-5 fw-bold transition-all ${
+                isOutOfStock
+                  ? 'btn btn-secondary rounded-pill disabled'
+                  : added
+                  ? 'btn btn-success rounded-pill text-white shadow'
+                  : 'btn-premium-amber'
               }`}
               style={{ padding: '12px 28px' }}
               onClick={() => {
                 if (!isOutOfStock) {
                   if (onAddToOrder) onAddToOrder(drink)
                   addToCart(drink)
+                  setAdded(true)
+                  window.dispatchEvent(
+                    new CustomEvent('cart-item-added', { detail: drink })
+                  )
+                  setTimeout(() => setAdded(false), 1600)
                 }
               }}
               disabled={isOutOfStock}
             >
-              {isOutOfStock ? 'Hết hàng' : '+ Thêm Vào Phiếu & Giỏ Hàng'}
+              {isOutOfStock
+                ? 'Hết hàng'
+                : added
+                ? '✓ Đã Thêm (+1 Phần)'
+                : '+ Thêm Vào Phiếu & Giỏ Hàng'}
             </button>
 
             <Button

@@ -1,8 +1,12 @@
+import { useState } from 'react'
 import { Container, Table, Button, Alert, Badge } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
+import CheckoutModal from '../components/CheckoutModal'
 
-function OrderPage({ orderItems = [], onUpdateQuantity, onRemove }) {
+function OrderPage({ orderItems = [], onUpdateQuantity, onRemove, onClearOrder }) {
+  const [showModal, setShowModal] = useState(false)
   const totalPrice = orderItems.reduce(
+
     (sum, item) => sum + item.price * item.quantity,
     0
   )
@@ -95,14 +99,31 @@ function OrderPage({ orderItems = [], onUpdateQuantity, onRemove }) {
 
       <div className="d-flex justify-content-end mt-4">
         <div className="p-4 rounded-4 shadow-sm w-100 w-sm-auto" style={{ background: 'var(--cafe-surface)', border: '1px solid var(--cafe-card-border)', minWidth: '340px' }}>
-          <div className="d-flex justify-content-between align-items-center">
+          <div className="d-flex justify-content-between align-items-center mb-3">
             <span className="text-muted font-heading">Tổng tiền tạm tính:</span>
             <span className="font-heading fw-extrabold fs-4 text-danger">
               {totalPrice.toLocaleString('vi-VN')}đ
             </span>
           </div>
+          <button
+            type="button"
+            className="btn-premium-amber w-100 py-3 fs-6 d-flex align-items-center justify-content-center gap-2"
+            onClick={() => setShowModal(true)}
+          >
+            <span>👨‍🍳 Gửi Phiếu Vào Bếp Ngay</span>
+            <span>→</span>
+          </button>
         </div>
       </div>
+
+      <CheckoutModal
+        show={showModal}
+        onHide={() => setShowModal(false)}
+        items={orderItems}
+        total={totalPrice}
+        isKitchenOrder={true}
+        onConfirmComplete={onClearOrder}
+      />
     </Container>
   )
 }
