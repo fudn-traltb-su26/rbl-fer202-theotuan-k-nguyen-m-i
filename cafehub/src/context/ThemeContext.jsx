@@ -9,6 +9,8 @@ export function ThemeProvider({ children }) {
   })
 
   useEffect(() => {
+    // Bootstrap 5 dark mode chuẩn: data-bs-theme trên <html>
+    document.documentElement.setAttribute('data-bs-theme', theme)
     document.body.dataset.theme = theme
     localStorage.setItem('cafehub-theme', theme)
   }, [theme])

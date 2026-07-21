@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { Spinner } from 'react-bootstrap'
+import { useSearchParams } from 'react-router-dom'
 
 import SectionWrapper from '../components/SectionWrapper'
 import CategoryList from '../components/CategoryList'
@@ -12,9 +13,22 @@ import drinks from '../data/drinks'
 // Tuần 4: state filter keyword + activeCategory
 // Tuần 7: useRef auto-focus SearchBar khi trang load
 function MenuPage({ onAddToOrder }) {
+  const [searchParams, setSearchParams] = useSearchParams()
   const [keyword, setKeyword] = useState('')
-  const [activeCategory, setActiveCategory] = useState(null)
+  const [activeCategory, setActiveCategory] = useState(() => {
+    const cat = searchParams.get('cat')
+    return cat ? Number(cat) : null
+  })
   const [isLoading, setIsLoading] = useState(true)
+
+  const handleSelectCategory = (id) => {
+    setActiveCategory(id)
+    if (id) {
+      setSearchParams({ cat: id })
+    } else {
+      setSearchParams({})
+    }
+  }
 
   // Tuần 7: useRef — tham chiếu đến SearchBar input để focus
   const searchRef = useRef(null)
@@ -70,7 +84,7 @@ function MenuPage({ onAddToOrder }) {
         <CategoryList
           categories={categories}
           activeCategory={activeCategory}
-          onSelectCategory={setActiveCategory}
+          onSelectCategory={handleSelectCategory}
         />
       </div>
 

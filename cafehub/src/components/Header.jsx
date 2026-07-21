@@ -25,7 +25,7 @@ function Header() {
   const isDark = theme === 'dark'
 
   return (
-    <Navbar bg={isDark ? 'dark' : 'dark'} variant="dark" expand="md" sticky="top">
+    <Navbar bg={isDark ? 'dark' : 'light'} variant={isDark ? 'dark' : 'light'} expand="md" sticky="top" className="shadow-sm">
       <Container>
         {/* Logo */}
         <Navbar.Brand as={NavLink} to="/" className="fw-bold fs-5">

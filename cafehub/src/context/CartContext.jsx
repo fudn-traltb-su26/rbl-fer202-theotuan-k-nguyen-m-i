@@ -45,7 +45,7 @@ export function CartProvider({ children }) {
   const totalAmount = useMemo(
     () =>
       cart.reduce((total, item) => {
-        const numericPrice = Number(String(item.priceValue ?? item.price ?? 0).replace(/\D/g, '')) || 0
+        const numericPrice = Number(item.price) || 0
         return total + numericPrice * item.quantity
       }, 0),
     [cart],

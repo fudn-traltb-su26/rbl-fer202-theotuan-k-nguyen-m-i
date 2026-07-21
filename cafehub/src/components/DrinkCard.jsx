@@ -2,8 +2,12 @@ import { Card, Button, Badge } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 // Tuần 9: useLocalStorage cho tính năng Wishlist ❤️
 import useLocalStorage from '../hooks/useLocalStorage'
+// Tuần 7: useCart để đồng bộ vào giỏ hàng Header
+import { useCart } from '../context/CartContext'
 
 function DrinkCard({ drink, onAddToOrder }) {
+  const { addToCart } = useCart()
+
   const hasDiscount = drink.originalPrice > drink.price
   const discountPercent = hasDiscount
     ? Math.round(((drink.originalPrice - drink.price) / drink.originalPrice) * 100)
@@ -123,7 +127,10 @@ function DrinkCard({ drink, onAddToOrder }) {
             variant="dark"
             size="sm"
             className="flex-grow-1"
-            onClick={() => onAddToOrder(drink)}
+            onClick={() => {
+              if (onAddToOrder) onAddToOrder(drink)
+              addToCart(drink)
+            }}
             disabled={isOutOfStock}
           >
             {isOutOfStock ? 'Hết hàng' : '+ Gọi món'}

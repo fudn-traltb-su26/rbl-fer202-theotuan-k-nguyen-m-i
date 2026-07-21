@@ -1,11 +1,13 @@
 import { Button, Container, Row, Col, Alert, Badge, Breadcrumb } from 'react-bootstrap'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import drinks from '../data/drinks'
+import { useCart } from '../context/CartContext'
 
 // Tuần 6: useParams() đọc :id từ URL /menu/:id
 function DrinkDetailPage({ onAddToOrder }) {
   const { id } = useParams()
   const navigate = useNavigate()
+  const { addToCart } = useCart()
 
   const drink = drinks.find((item) => item.id === parseInt(id))
 
@@ -105,7 +107,10 @@ function DrinkDetailPage({ onAddToOrder }) {
             <Button
               variant="dark"
               size="lg"
-              onClick={() => onAddToOrder(drink)}
+              onClick={() => {
+                if (onAddToOrder) onAddToOrder(drink)
+                addToCart(drink)
+              }}
               disabled={isOutOfStock}
             >
               {isOutOfStock ? 'Hết hàng' : '+ Thêm vào phiếu gọi món'}

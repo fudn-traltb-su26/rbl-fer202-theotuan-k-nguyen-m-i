@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom'
 import Banner from '../components/Banner'
 import SectionWrapper from '../components/SectionWrapper'
 import CategoryList from '../components/CategoryList'
@@ -7,6 +8,7 @@ import categories from '../data/categories'
 import drinks from '../data/drinks'
 
 function HomePage({ onAddToOrder }) {
+  const navigate = useNavigate()
   const featuredDrinks = drinks.filter((drink) => drink.featured)
 
   return (
@@ -21,7 +23,7 @@ function HomePage({ onAddToOrder }) {
         <CategoryList
           categories={categories}
           activeCategory={null}
-          onSelectCategory={() => {}}
+          onSelectCategory={(id) => navigate(id ? `/menu?cat=${id}` : '/menu')}
         />
       </SectionWrapper>
 
