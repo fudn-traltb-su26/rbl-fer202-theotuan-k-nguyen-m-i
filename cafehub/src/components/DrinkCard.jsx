@@ -17,14 +17,20 @@ function DrinkCard({ drink, onAddToOrder }) {
 
   // Tuần 9: Wishlist — lưu IDs vào localStorage, persist sau reload
   const [wishlist, setWishlist] = useLocalStorage('cafehub_wishlist', [])
-  const isWishlisted = wishlist.includes(drink.id)
+  const safeWishlist = Array.isArray(wishlist) ? wishlist : []
+  const isWishlisted = safeWishlist.includes(drink.id)
 
-  const toggleWishlist = () => {
-    setWishlist((prev) =>
-      prev.includes(drink.id)
-        ? prev.filter((id) => id !== drink.id)
-        : [...prev, drink.id]
-    )
+  const toggleWishlist = (e) => {
+    if (e) {
+      e.preventDefault()
+      e.stopPropagation()
+    }
+    setWishlist((prev) => {
+      const list = Array.isArray(prev) ? prev : []
+      return list.includes(drink.id)
+        ? list.filter((id) => id !== drink.id)
+        : [...list, drink.id]
+    })
   }
 
   return (

@@ -2,12 +2,15 @@ import { Button, Container, Row, Col, Alert, Badge, Breadcrumb } from 'react-boo
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import drinks from '../data/drinks'
 import { useCart } from '../context/CartContext'
+import useLocalStorage from '../hooks/useLocalStorage'
 
 // Tuần 6: useParams() đọc :id từ URL /menu/:id
 function DrinkDetailPage({ onAddToOrder }) {
   const { id } = useParams()
   const navigate = useNavigate()
   const { addToCart } = useCart()
+  const [wishlist, setWishlist] = useLocalStorage('cafehub_wishlist', [])
+
 
   const drink = drinks.find((item) => item.id === parseInt(id))
 
@@ -31,6 +34,18 @@ function DrinkDetailPage({ onAddToOrder }) {
     ? Math.round(((drink.originalPrice - drink.price) / drink.originalPrice) * 100)
     : 0
   const isOutOfStock = drink.stock === 0
+  const safeWishlist = Array.isArray(wishlist) ? wishlist : []
+  const isWishlisted = safeWishlist.includes(drink.id)
+
+  const toggleWishlist = (e) => {
+    if (e) e.preventDefault()
+    setWishlist((prev) => {
+      const list = Array.isArray(prev) ? prev : []
+      return list.includes(drink.id)
+        ? list.filter((id) => id !== drink.id)
+        : [...list, drink.id]
+    })
+  }
 
   return (
     <Container className="my-5">
@@ -104,6 +119,17 @@ function DrinkDetailPage({ onAddToOrder }) {
 
           {/* Action buttons */}
           <div className="d-grid gap-2 d-sm-flex flex-wrap">
+            <Button
+              variant={isWishlisted ? 'danger' : 'outline-danger'}
+              size="lg"
+              onClick={toggleWishlist}
+              className="px-3 shadow-sm d-flex align-items-center justify-content-center gap-2"
+              title={isWishlisted ? 'Xóa khỏi yêu thích' : 'Thêm vào yêu thích'}
+            >
+              <span>{isWishlisted ? '❤️' : '🤍'}</span>
+              <span className="fs-6">{isWishlisted ? 'Đã thích' : 'Yêu thích'}</span>
+            </Button>
+
             <Button
               variant="dark"
               size="lg"
