@@ -1,59 +1,121 @@
-import { Button, Container, Row, Col, Alert } from 'react-bootstrap'
+import { Button, Container, Row, Col, Alert, Badge, Breadcrumb } from 'react-bootstrap'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import drinks from '../data/drinks'
 
+// Tuần 6: useParams() đọc :id từ URL /menu/:id
 function DrinkDetailPage({ onAddToOrder }) {
   const { id } = useParams()
   const navigate = useNavigate()
 
   const drink = drinks.find((item) => item.id === parseInt(id))
 
+  // Không tìm thấy món
   if (!drink) {
     return (
       <Container className="my-5">
-        <Alert variant="danger">Không tìm thấy món trong thực đơn.</Alert>
-        <Button onClick={() => navigate(-1)}>Quay lại</Button>
+        <Alert variant="danger">
+          <Alert.Heading>Không tìm thấy món</Alert.Heading>
+          <p>Món đồ uống với mã số #{id} không tồn tại trong thực đơn.</p>
+        </Alert>
+        <Button variant="dark" onClick={() => navigate(-1)}>
+          ← Quay lại
+        </Button>
       </Container>
     )
   }
 
+  const hasDiscount = drink.originalPrice > drink.price
+  const discountPercent = hasDiscount
+    ? Math.round(((drink.originalPrice - drink.price) / drink.originalPrice) * 100)
+    : 0
+  const isOutOfStock = drink.stock === 0
+
   return (
     <Container className="my-5">
-      <p>
-        <Link to="/">Trang chủ</Link> / <Link to="/menu">Thực đơn</Link> / {drink.name}
-      </p>
+      {/* Breadcrumb — Tuần 6: điều hướng rõ ràng */}
+      <Breadcrumb className="mb-4">
+        <Breadcrumb.Item linkAs={Link} linkProps={{ to: '/' }}>
+          Trang chủ
+        </Breadcrumb.Item>
+        <Breadcrumb.Item linkAs={Link} linkProps={{ to: '/menu' }}>
+          Thực đơn
+        </Breadcrumb.Item>
+        <Breadcrumb.Item active>{drink.name}</Breadcrumb.Item>
+      </Breadcrumb>
 
       <Row>
-        <Col md={5}>
-          <img
-            src={`https://picsum.photos/seed/drink${drink.id}/500/350`}
-            alt={drink.name}
-            className="img-fluid rounded"
-          />
+        {/* Ảnh */}
+        <Col md={5} className="mb-4 mb-md-0">
+          <div style={{ position: 'relative' }}>
+            {hasDiscount && (
+              <Badge
+                bg="danger"
+                style={{ position: 'absolute', top: 12, left: 12, zIndex: 1, fontSize: '0.9rem' }}
+              >
+                -{discountPercent}%
+              </Badge>
+            )}
+            <img
+              src={`https://picsum.photos/seed/drink${drink.id}/500/380`}
+              alt={drink.name}
+              loading="lazy"
+              className="img-fluid rounded shadow-sm w-100"
+              style={{ objectFit: 'cover', maxHeight: '380px' }}
+            />
+          </div>
         </Col>
 
+        {/* Thông tin chi tiết */}
         <Col md={7}>
-          <h2>{drink.name}</h2>
-          <p className="text-muted">{drink.description}</p>
+          <Badge bg="info" className="mb-2">
+            Danh mục #{drink.categoryId}
+          </Badge>
+          <h2 className="fw-bold mb-2">{drink.name}</h2>
+          <p className="text-muted mb-3">{drink.description}</p>
 
-          <h4 className="text-danger">
-            {drink.price.toLocaleString('vi-VN')}đ
-          </h4>
+          {/* Giá */}
+          <div className="mb-3">
+            <span className="text-danger fw-bold fs-4">
+              {drink.price.toLocaleString('vi-VN')}đ
+            </span>
+            {hasDiscount && (
+              <span className="text-decoration-line-through text-muted ms-3 fs-6">
+                {drink.originalPrice.toLocaleString('vi-VN')}đ
+              </span>
+            )}
+          </div>
 
-          <p>⭐ {drink.rating}</p>
-          <p>{drink.stock > 0 ? `Còn ${drink.stock} phần` : 'Hết hàng'}</p>
+          {/* Rating */}
+          <p className="mb-2">
+            ⭐ <strong>{drink.rating}</strong>
+            <span className="text-muted ms-2">/ 5.0</span>
+          </p>
 
-          <Button
-            variant="dark"
-            onClick={() => onAddToOrder(drink)}
-            disabled={drink.stock === 0}
-          >
-            Thêm vào phiếu gọi món
-          </Button>{' '}
+          {/* Tồn kho */}
+          <p className="mb-4">
+            {isOutOfStock ? (
+              <span className="text-danger fw-semibold">❌ Hết hàng</span>
+            ) : (
+              <span className="text-success fw-semibold">✅ Còn {drink.stock} phần</span>
+            )}
+          </p>
 
-          <Button variant="secondary" onClick={() => navigate(-1)}>
-            Quay lại
-          </Button>
+          {/* Action buttons */}
+          <div className="d-flex gap-3 flex-wrap">
+            <Button
+              variant="dark"
+              size="lg"
+              onClick={() => onAddToOrder(drink)}
+              disabled={isOutOfStock}
+            >
+              {isOutOfStock ? 'Hết hàng' : '+ Thêm vào phiếu gọi món'}
+            </Button>
+
+            {/* useNavigate(-1) — Tuần 6 */}
+            <Button variant="outline-secondary" size="lg" onClick={() => navigate(-1)}>
+              ← Quay lại
+            </Button>
+          </div>
         </Col>
       </Row>
     </Container>
