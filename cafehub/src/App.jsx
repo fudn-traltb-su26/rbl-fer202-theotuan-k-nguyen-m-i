@@ -1,167 +1,127 @@
-import './App.css'
+import { lazy, Suspense, useState } from 'react'
+import { Routes, Route } from 'react-router-dom'
+import { Spinner, Container } from 'react-bootstrap'
 
-const categories = [
-  { id: 1, icon: '☕', name: 'Tất cả' },
-  { id: 2, icon: '☕', name: 'Cà phê' },
-  { id: 3, icon: '🧋', name: 'Trà sữa' },
-  { id: 4, icon: '🍹', name: 'Trà trái cây' },
-  { id: 5, icon: '🥤', name: 'Đá xay' },
-  { id: 6, icon: '🍊', name: 'Nước ép' }
-]
+import Header from './components/Header'
+import Footer from './components/Footer'
+import ProtectedRoute from './components/ProtectedRoute'
 
-const drinks = [
-  {
-    id: 1,
-    name: 'Cà phê sữa',
-    desc: 'Cà phê truyền thống kết hợp sữa đặc thơm béo.',
-    price: 30000,
-    oldPrice: 35000,
-    rating: 4.8,
-    review: 120,
-    badge: '-14%',
-    image: 'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=600'
-  },
-  {
-    id: 2,
-    name: 'Bạc xỉu',
-    desc: 'Vị sữa béo nhẹ hòa quyện cùng cà phê.',
-    price: 35000,
-    oldPrice: 40000,
-    rating: 4.7,
-    review: 98,
-    badge: '-13%',
-    image: 'https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=600'
-  },
-  {
-    id: 3,
-    name: 'Trà đào cam sả',
-    desc: 'Trà trái cây thanh mát, thơm mùi sả.',
-    price: 45000,
-    oldPrice: null,
-    rating: 4.9,
-    review: 76,
-    badge: 'MỚI',
-    image: 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=600'
-  },
-  {
-    id: 4,
-    name: 'Matcha đá xay',
-    desc: 'Matcha thơm béo, mát lạnh và hấp dẫn.',
-    price: 55000,
-    oldPrice: 60000,
-    rating: 4.6,
-    review: 64,
-    badge: '-8%',
-    image: 'https://images.unsplash.com/photo-1515823064-d6e0c04616a7?w=600'
-  }
-]
+// Tuần 10: React.lazy — code splitting theo route
+// Mỗi page chỉ được tải khi user navigate đến route đó (không load trước)
+const HomePage = lazy(() => import('./pages/HomePage'))
+const MenuPage = lazy(() => import('./pages/MenuPage'))
+const DrinkDetailPage = lazy(() => import('./pages/DrinkDetailPage'))
+const DrinkListPage = lazy(() => import('./pages/DrinkListPage'))
+const OrderPage = lazy(() => import('./pages/OrderPage'))
+const CartPage = lazy(() => import('./pages/CartPage'))
+const NotFoundPage = lazy(() => import('./pages/NotFoundPage'))
+const DrinkManagePage = lazy(() => import('./pages/admin/DrinkManagePage'))
+
+// Loading fallback — hiển thị khi chunk đang được tải
+function PageLoader() {
+  return (
+    <Container
+      className="d-flex justify-content-center align-items-center"
+      style={{ minHeight: '60vh' }}
+    >
+      <div className="text-center">
+        <Spinner animation="border" variant="dark" className="mb-3" />
+        <p className="text-muted">Đang tải trang...</p>
+      </div>
+    </Container>
+  )
+}
+
+// isAdmin: Tuần 6 ProtectedRoute — set true để test admin page
+const IS_ADMIN = true
 
 function App() {
+  // --- State Tuần 4: Giỏ hàng / Phiếu gọi món ---
+  // (Tuần 7 chuyển sang CartContext cho useCart();
+  //  Tuần 10: có thể migrate sang Redux store/cartSlice.js)
+  const [orderItems, setOrderItems] = useState([])
+
+  const handleAddToOrder = (drink) => {
+    setOrderItems((prev) => {
+      const existing = prev.find((i) => i.id === drink.id)
+      if (existing) {
+        return prev.map((i) =>
+          i.id === drink.id ? { ...i, quantity: i.quantity + 1 } : i
+        )
+      }
+      return [...prev, { ...drink, quantity: 1 }]
+    })
+  }
+
+  const handleUpdateQuantity = (id, quantity) => {
+    setOrderItems((prev) =>
+      prev
+        .map((i) => (i.id === id ? { ...i, quantity: Math.max(0, quantity) } : i))
+        .filter((i) => i.quantity > 0)
+    )
+  }
+
+  const handleRemove = (id) => {
+    setOrderItems((prev) => prev.filter((i) => i.id !== id))
+  }
+
   return (
-    <div className="app">
-      <div className="topbar">
-        <span>📍 123 Nguyễn Văn Linh, Đà Nẵng</span>
-        <span>📞 0905 123 456</span>
-        <span>🚚 FREESHIP cho đơn hàng từ 99K</span>
-        <span>Đăng nhập / Đăng ký 👤</span>
-      </div>
+    <>
+      {/* Header — Tuần 7: useCart() context, không cần props */}
+      <Header />
 
-      <header className="header">
-        <div className="logo">
-          <div className="logo-icon">☕</div>
-          <div>
-            <h2>CafeHub</h2>
-            <p>Good coffee, good mood</p>
-          </div>
-        </div>
+      <main>
+        {/* Tuần 10: Suspense bọc quanh Routes để hiển thị fallback khi lazy load */}
+        <Suspense fallback={<PageLoader />}>
+          <Routes>
+            {/* Trang chủ */}
+            <Route path="/" element={<HomePage onAddToOrder={handleAddToOrder} />} />
 
-        <nav>
-          <a className="active">TRANG CHỦ</a>
-          <a>THỰC ĐƠN</a>
-          <a>KHUYẾN MÃI</a>
-          <a>BLOG</a>
-          <a>LIÊN HỆ</a>
-        </nav>
+            {/* Thực đơn */}
+            <Route path="/menu" element={<MenuPage onAddToOrder={handleAddToOrder} />} />
 
-        <div className="search-cart">
-          <div className="search">
-            <input placeholder="Tìm đồ uống..." />
-            <span>🔍</span>
-          </div>
-          <div className="cart">
-            🛒
-            <b>3</b>
-          </div>
-        </div>
-      </header>
+            {/* Chi tiết đồ uống — Tuần 6: useParams */}
+            <Route
+              path="/menu/:id"
+              element={<DrinkDetailPage onAddToOrder={handleAddToOrder} />}
+            />
 
-      <section className="hero">
-        <div className="hero-content">
-          <p className="welcome">Chào mừng đến với</p>
-          <h1>CAFEHUB</h1>
-          <p className="subtitle">Thưởng thức cà phê chất lượng và không gian tuyệt vời</p>
-          <button>KHÁM PHÁ NGAY →</button>
-        </div>
-      </section>
+            {/* Danh sách đầy đủ */}
+            <Route path="/drinks" element={<DrinkListPage />} />
 
-      <main className="main">
-        <aside className="sidebar">
-          <div className="category-box">
-            <h3>DANH MỤC</h3>
-            {categories.map((cat) => (
-              <div key={cat.id} className={cat.id === 1 ? 'cat active-cat' : 'cat'}>
-                <span>{cat.icon}</span>
-                <p>{cat.name}</p>
-              </div>
-            ))}
-          </div>
+            {/* Phiếu gọi món tạm */}
+            <Route
+              path="/order"
+              element={
+                <OrderPage
+                  orderItems={orderItems}
+                  onUpdateQuantity={handleUpdateQuantity}
+                  onRemove={handleRemove}
+                />
+              }
+            />
 
-          <div className="promo">
-            <h2>Giảm 20%</h2>
-            <p>Cho đơn hàng đầu tiên</p>
-            <button>NHẬN NGAY</button>
-          </div>
-        </aside>
+            {/* Giỏ hàng — Tuần 7: CartContext */}
+            <Route path="/cart" element={<CartPage />} />
 
-        <section className="products">
-          <div className="section-title">
-            <h2>☕ ĐỒ UỐNG NỔI BẬT</h2>
-            <a>Xem tất cả →</a>
-          </div>
+            {/* Admin — Tuần 6: ProtectedRoute */}
+            <Route
+              path="/admin/drinks"
+              element={
+                <ProtectedRoute isAllowed={IS_ADMIN} redirectTo="/">
+                  <DrinkManagePage />
+                </ProtectedRoute>
+              }
+            />
 
-          <div className="product-grid">
-            {drinks.map((drink) => (
-              <div className="card" key={drink.id}>
-                <div className="img-wrap">
-                  <img src={drink.image} alt={drink.name} />
-                  <span className={drink.badge === 'MỚI' ? 'badge new' : 'badge'}>
-                    {drink.badge}
-                  </span>
-                  <span className="heart">♡</span>
-                </div>
-
-                <div className="card-body">
-                  <h3>{drink.name}</h3>
-                  <p>{drink.desc}</p>
-
-                  <div className="rating">
-                    ⭐ <b>{drink.rating}</b>
-                    <span>({drink.review})</span>
-                  </div>
-
-                  <div className="price">
-                    <b>{drink.price.toLocaleString('vi-VN')}đ</b>
-                    {drink.oldPrice && <span>{drink.oldPrice.toLocaleString('vi-VN')}đ</span>}
-                  </div>
-
-                  <button>+ THÊM VÀO GIỎ</button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
+            {/* 404 */}
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </Suspense>
       </main>
-    </div>
+
+      <Footer />
+    </>
   )
 }
 
