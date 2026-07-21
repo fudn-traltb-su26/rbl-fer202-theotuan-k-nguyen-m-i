@@ -1,4 +1,4 @@
-import { Row, Col, Card } from 'react-bootstrap'
+import { Row, Col } from 'react-bootstrap'
 
 function CategoryList({ categories = [], activeCategory, onSelectCategory }) {
   const allCategoryItem = { id: null, name: 'Tất cả', icon: '🍽️' }
@@ -10,24 +10,24 @@ function CategoryList({ categories = [], activeCategory, onSelectCategory }) {
         const isActive = activeCategory === category.id
         return (
           <Col key={category.id ?? 'all'}>
-            <Card
-              className={`text-center h-100 shadow-sm transition-card ${
-                isActive ? 'border-warning bg-warning bg-opacity-10' : ''
+            <div
+              className={`category-card p-3 text-center h-100 d-flex flex-column align-items-center justify-content-center ${
+                isActive ? 'active-category' : ''
               }`}
               onClick={() => onSelectCategory(category.id)}
-              style={{ cursor: 'pointer', transition: 'all 0.2s' }}
+              style={{ cursor: 'pointer' }}
             >
-              <Card.Body className="p-2 p-md-3 d-flex flex-column align-items-center justify-content-center">
-                <div className="fs-3 fs-md-2 mb-1">{category.icon}</div>
-                <Card.Text
-                  className={`small mb-0 text-truncate w-100 ${
-                    isActive ? 'fw-bold text-dark' : 'fw-semibold text-muted'
-                  }`}
-                >
-                  {category.name}
-                </Card.Text>
-              </Card.Body>
-            </Card>
+              <div className="fs-2 mb-1 transition-transform" style={{ transform: isActive ? 'scale(1.15)' : 'scale(1)' }}>
+                {category.icon}
+              </div>
+              <div
+                className={`small mb-0 text-truncate w-100 font-heading ${
+                  isActive ? 'fw-bold text-dark' : 'fw-semibold text-muted'
+                }`}
+              >
+                {category.name}
+              </div>
+            </div>
           </Col>
         )
       })}

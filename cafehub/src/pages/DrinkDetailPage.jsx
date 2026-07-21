@@ -4,27 +4,24 @@ import drinks from '../data/drinks'
 import { useCart } from '../context/CartContext'
 import useLocalStorage from '../hooks/useLocalStorage'
 
-// Tuần 6: useParams() đọc :id từ URL /menu/:id
 function DrinkDetailPage({ onAddToOrder }) {
   const { id } = useParams()
   const navigate = useNavigate()
   const { addToCart } = useCart()
   const [wishlist, setWishlist] = useLocalStorage('cafehub_wishlist', [])
 
-
   const drink = drinks.find((item) => item.id === parseInt(id))
 
-  // Không tìm thấy món
   if (!drink) {
     return (
       <Container className="my-5">
-        <Alert variant="danger">
-          <Alert.Heading>Không tìm thấy món</Alert.Heading>
-          <p>Món đồ uống với mã số #{id} không tồn tại trong thực đơn.</p>
+        <Alert variant="danger" className="rounded-4 p-4 shadow-sm">
+          <Alert.Heading className="font-heading fw-bold">⚠️ Không tìm thấy thức uống</Alert.Heading>
+          <p>Món đồ uống với mã số #{id} không tồn tại hoặc đã được gỡ khỏi thực đơn CafeHub.</p>
+          <Button variant="dark" onClick={() => navigate(-1)} className="rounded-pill px-4 mt-2 font-heading">
+            ← Quay lại thực đơn
+          </Button>
         </Alert>
-        <Button variant="dark" onClick={() => navigate(-1)}>
-          ← Quay lại
-        </Button>
       </Container>
     )
   }
@@ -48,103 +45,121 @@ function DrinkDetailPage({ onAddToOrder }) {
   }
 
   return (
-    <Container className="my-5">
-      {/* Breadcrumb — Tuần 6: điều hướng rõ ràng */}
-      <Breadcrumb className="mb-4">
-        <Breadcrumb.Item linkAs={Link} linkProps={{ to: '/' }}>
-          Trang chủ
+    <Container className="my-4 my-md-5">
+      {/* Breadcrumb — Tuần 6 */}
+      <Breadcrumb className="mb-4 small font-heading">
+        <Breadcrumb.Item linkAs={Link} linkProps={{ to: '/' }} className="text-decoration-none">
+          🏠 Trang chủ
         </Breadcrumb.Item>
-        <Breadcrumb.Item linkAs={Link} linkProps={{ to: '/menu' }}>
-          Thực đơn
+        <Breadcrumb.Item linkAs={Link} linkProps={{ to: '/menu' }} className="text-decoration-none">
+          📋 Thực đơn
         </Breadcrumb.Item>
-        <Breadcrumb.Item active>{drink.name}</Breadcrumb.Item>
+        <Breadcrumb.Item active className="fw-semibold text-warning">
+          {drink.name}
+        </Breadcrumb.Item>
       </Breadcrumb>
 
-      <Row>
+      <Row className="g-4 g-lg-5 align-items-center">
         {/* Ảnh */}
-        <Col md={5} className="mb-4 mb-md-0">
-          <div style={{ position: 'relative' }}>
+        <Col md={6}>
+          <div className="position-relative rounded-4 overflow-hidden shadow-lg border border-secondary border-opacity-10" style={{ background: 'var(--cafe-surface)' }}>
             {hasDiscount && (
               <Badge
                 bg="danger"
-                style={{ position: 'absolute', top: 12, left: 12, zIndex: 1, fontSize: '0.9rem' }}
+                className="position-absolute top-0 start-0 m-3 px-3 py-2 shadow rounded-pill font-heading fs-6"
+                style={{ zIndex: 1, letterSpacing: '0.5px' }}
               >
-                -{discountPercent}%
+                🔥 Ưu đãi -{discountPercent}%
               </Badge>
             )}
             <img
-              src={`https://picsum.photos/seed/drink${drink.id}/500/380`}
+              src={`https://picsum.photos/seed/drink${drink.id}/600/450`}
               alt={drink.name}
               loading="lazy"
-              className="img-fluid rounded shadow-sm w-100"
-              style={{ objectFit: 'cover', maxHeight: '380px' }}
+              className="img-fluid w-100 transition-transform"
+              style={{ objectFit: 'cover', maxHeight: '450px' }}
             />
           </div>
         </Col>
 
         {/* Thông tin chi tiết */}
-        <Col md={7}>
-          <Badge bg="info" className="mb-2">
-            Danh mục #{drink.categoryId}
-          </Badge>
-          <h2 className="fw-bold mb-2">{drink.name}</h2>
-          <p className="text-muted mb-3">{drink.description}</p>
-
-          {/* Giá */}
-          <div className="mb-3">
-            <span className="text-danger fw-bold fs-4">
-              {drink.price.toLocaleString('vi-VN')}đ
+        <Col md={6}>
+          <div className="d-flex align-items-center gap-2 mb-3">
+            <Badge className="rounded-pill px-3 py-1 font-heading" style={{ background: 'rgba(255, 179, 0, 0.18)', color: '#d97706', fontSize: '0.85rem' }}>
+              #{drink.categoryId} • Thức uống đặc trưng
+            </Badge>
+            <span className="small fw-bold font-heading" style={{ color: '#f59e0b' }}>
+              ⭐ {drink.rating} <span className="text-muted fw-normal">/ 5.0</span>
             </span>
-            {hasDiscount && (
-              <span className="text-decoration-line-through text-muted ms-3 fs-6">
-                {drink.originalPrice.toLocaleString('vi-VN')}đ
-              </span>
-            )}
           </div>
 
-          {/* Rating */}
-          <p className="mb-2">
-            ⭐ <strong>{drink.rating}</strong>
-            <span className="text-muted ms-2">/ 5.0</span>
+          <h1 className="font-heading fw-extrabold display-5 mb-3">{drink.name}</h1>
+          
+          <p className="text-muted mb-4 font-body opacity-90 fs-6" style={{ lineHeight: '1.8' }}>
+            {drink.description}
           </p>
 
-          {/* Tồn kho */}
-          <p className="mb-4">
-            {isOutOfStock ? (
-              <span className="text-danger fw-semibold">❌ Hết hàng</span>
-            ) : (
-              <span className="text-success fw-semibold">✅ Còn {drink.stock} phần</span>
-            )}
-          </p>
+          {/* Giá */}
+          <div className="mb-4 p-3 rounded-4 d-flex align-items-center justify-content-between border border-secondary border-opacity-10" style={{ background: 'var(--cafe-surface)' }}>
+            <div>
+              <div className="small text-muted font-heading">Giá niêm yết</div>
+              <div className="d-flex align-items-baseline gap-3">
+                <span className="text-danger font-heading fw-extrabold display-6">
+                  {drink.price.toLocaleString('vi-VN')}đ
+                </span>
+                {hasDiscount && (
+                  <span className="text-decoration-line-through text-muted fs-5">
+                    {drink.originalPrice.toLocaleString('vi-VN')}đ
+                  </span>
+                )}
+              </div>
+            </div>
+            <div className="text-end font-heading">
+              {isOutOfStock ? (
+                <Badge bg="secondary" className="rounded-pill px-3 py-2 fs-6">❌ Hết hàng</Badge>
+              ) : (
+                <Badge bg="success" className="rounded-pill px-3 py-2 fs-6">✅ Có sẵn ({drink.stock} phần)</Badge>
+              )}
+            </div>
+          </div>
 
           {/* Action buttons */}
-          <div className="d-grid gap-2 d-sm-flex flex-wrap">
+          <div className="d-grid gap-3 d-sm-flex flex-wrap pt-2">
             <Button
               variant={isWishlisted ? 'danger' : 'outline-danger'}
               size="lg"
               onClick={toggleWishlist}
-              className="px-3 shadow-sm d-flex align-items-center justify-content-center gap-2"
+              className="heart-animated px-4 rounded-pill shadow-sm d-flex align-items-center justify-content-center gap-2 font-heading"
+              style={{ borderWidth: '1.5px' }}
               title={isWishlisted ? 'Xóa khỏi yêu thích' : 'Thêm vào yêu thích'}
             >
               <span>{isWishlisted ? '❤️' : '🤍'}</span>
-              <span className="fs-6">{isWishlisted ? 'Đã thích' : 'Yêu thích'}</span>
+              <span className="fs-6 fw-semibold">{isWishlisted ? 'Đã yêu thích' : 'Yêu thích món'}</span>
             </Button>
 
-            <Button
-              variant="dark"
-              size="lg"
-              className="px-4 fw-bold shadow-sm"
+            <button
+              type="button"
+              className={`flex-grow-1 font-heading fs-5 fw-bold ${
+                isOutOfStock ? 'btn btn-secondary rounded-pill disabled' : 'btn-premium-amber'
+              }`}
+              style={{ padding: '12px 28px' }}
               onClick={() => {
-                if (onAddToOrder) onAddToOrder(drink)
-                addToCart(drink)
+                if (!isOutOfStock) {
+                  if (onAddToOrder) onAddToOrder(drink)
+                  addToCart(drink)
+                }
               }}
               disabled={isOutOfStock}
             >
-              {isOutOfStock ? 'Hết hàng' : '+ Thêm vào phiếu gọi món'}
-            </Button>
+              {isOutOfStock ? 'Hết hàng' : '+ Thêm Vào Phiếu & Giỏ Hàng'}
+            </button>
 
-            {/* useNavigate(-1) — Tuần 6 */}
-            <Button variant="outline-secondary" size="lg" className="px-4" onClick={() => navigate(-1)}>
+            <Button
+              variant="outline-secondary"
+              size="lg"
+              className="px-4 rounded-pill font-heading"
+              onClick={() => navigate(-1)}
+            >
               ← Quay lại
             </Button>
           </div>

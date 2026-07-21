@@ -36,36 +36,43 @@ const SearchBar = forwardRef(function SearchBar({ onSearch }, ref) {
   }
 
   return (
-    <Form onSubmit={handleSubmit} className="mb-3 mb-md-4">
-      <InputGroup className="shadow-sm">
+    <Form onSubmit={handleSubmit} className="mb-4">
+      <InputGroup className="shadow-sm rounded-pill overflow-hidden border border-secondary-subtle" style={{ background: 'var(--cafe-card-bg)' }}>
+        <span className="input-group-text bg-transparent border-0 ps-3 pe-2 fs-5" style={{ color: 'var(--cafe-accent)' }}>
+          🔍
+        </span>
         <Form.Control
           ref={ref}
           value={keyword}
           onChange={handleChange}
-          placeholder="🔍 Tìm món theo tên..."
-          className="py-2"
+          placeholder="Tìm món đồ uống yêu thích (Cà phê, Trà sữa, Sinh tố...)..."
+          className="py-2 border-0 shadow-none bg-transparent font-body"
         />
-
-        <Button type="submit" variant="dark" className="px-3 px-md-4 fw-semibold">
-          Tìm
-        </Button>
 
         {keyword && (
           <Button
             type="button"
-            variant="outline-secondary"
+            variant="link"
             onClick={handleClear}
-            className="px-2 px-md-3"
+            className="text-decoration-none px-3 text-muted border-0 d-flex align-items-center"
             title="Xóa tìm kiếm"
           >
             ✕
           </Button>
         )}
+
+        <button
+          type="submit"
+          className="btn-premium-amber px-4 m-1 rounded-pill font-heading small fw-bold"
+          style={{ padding: '8px 24px' }}
+        >
+          Tìm
+        </button>
       </InputGroup>
 
       {error && (
-        <Alert variant="danger" className="mt-2 py-2 small mb-0">
-          {error}
+        <Alert variant="danger" className="mt-2 py-2 px-3 small rounded-pill mb-0 d-inline-block shadow-sm">
+          ⚠️ {error}
         </Alert>
       )}
     </Form>

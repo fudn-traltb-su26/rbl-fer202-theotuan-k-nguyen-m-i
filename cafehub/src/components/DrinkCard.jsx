@@ -34,15 +34,15 @@ function DrinkCard({ drink, onAddToOrder }) {
   }
 
   return (
-    <Card className="h-100 shadow-sm border-0 bg-body w-100">
-      {/* Ảnh đồ uống */}
-      <div style={{ position: 'relative' }}>
+    <Card className="premium-card h-100 border-0 w-100">
+      {/* Khung ảnh với hiệu ứng zoom mượt */}
+      <div className="zoom-wrapper">
         {/* Badge giảm giá */}
         {hasDiscount && (
           <Badge
             bg="danger"
-            className="position-absolute top-0 start-0 m-2 shadow-sm"
-            style={{ zIndex: 1 }}
+            className="position-absolute top-0 start-0 m-2 px-2 py-1 shadow-sm rounded-pill font-heading"
+            style={{ zIndex: 2, fontSize: '0.75rem', letterSpacing: '0.5px' }}
           >
             -{discountPercent}%
           </Badge>
@@ -52,8 +52,8 @@ function DrinkCard({ drink, onAddToOrder }) {
         {isOutOfStock && (
           <Badge
             bg="secondary"
-            className="position-absolute top-0 end-0 m-2 shadow-sm"
-            style={{ zIndex: 1 }}
+            className="position-absolute top-0 end-0 m-2 px-2 py-1 shadow-sm rounded-pill font-heading"
+            style={{ zIndex: 2, fontSize: '0.75rem' }}
           >
             Hết hàng
           </Badge>
@@ -68,47 +68,51 @@ function DrinkCard({ drink, onAddToOrder }) {
         />
       </div>
 
-      <Card.Body className="d-flex flex-column p-2 p-md-3">
-        {/* Category badge */}
-        <div className="d-flex justify-content-between align-items-center mb-1">
-          <Badge bg="info" className="mobile-fs-sm opacity-75">
+      <Card.Body className="d-flex flex-column p-3">
+        {/* Category & Rating */}
+        <div className="d-flex justify-content-between align-items-center mb-2">
+          <span
+            className="badge rounded-pill small px-2 py-1 font-heading"
+            style={{ background: 'rgba(255, 179, 0, 0.15)', color: '#d97706' }}
+          >
             #{drink.categoryId}
-          </Badge>
-          <span className="small text-warning fw-bold mobile-fs-sm">
-            ⭐ {drink.rating}
+          </span>
+          <span className="small fw-bold mobile-fs-sm font-heading" style={{ color: '#f59e0b' }}>
+            ⭐ {drink.rating}{' '}
+            <span className="text-muted fw-normal">/ 5.0</span>
           </span>
         </div>
 
-        <Card.Title className="fs-6 fw-bold mb-1 text-truncate" title={drink.name}>
+        <Card.Title className="font-heading fs-6 fw-bold mb-1 text-truncate" title={drink.name}>
           {drink.name}
         </Card.Title>
-        
-        <Card.Text className="text-muted small flex-grow-1 d-none d-sm-block mb-2">
+
+        <Card.Text className="text-muted small flex-grow-1 d-none d-sm-block mb-3" style={{ lineHeight: '1.5', minHeight: '38px' }}>
           {drink.description}
         </Card.Text>
 
         {/* Giá */}
-        <div className="mb-2">
-          <strong className="text-danger fs-6 mobile-fs-sm">
+        <div className="mb-2 d-flex align-items-baseline gap-2">
+          <strong className="text-danger font-heading fs-5 mobile-fs-sm">
             {drink.price.toLocaleString('vi-VN')}đ
-          </strong>{' '}
+          </strong>
           {hasDiscount && (
-            <small className="text-decoration-line-through text-muted ms-1">
+            <small className="text-decoration-line-through text-muted small">
               {drink.originalPrice.toLocaleString('vi-VN')}đ
             </small>
           )}
         </div>
 
-        {/* Stock */}
-        <div className="mb-2 small text-muted d-none d-sm-block">
+        {/* Tồn kho */}
+        <div className="mb-3 small d-none d-sm-block font-heading">
           {isOutOfStock ? (
-            <span className="text-danger">❌ Hết hàng</span>
+            <span className="text-danger fw-semibold">❌ Hết hàng</span>
           ) : (
-            <span className="text-success">✅ Còn {drink.stock} phần</span>
+            <span className="text-success fw-semibold">✅ Còn {drink.stock} phần</span>
           )}
         </div>
 
-        {/* Action buttons — Tối ưu tuyệt đối cho mobile column 170px */}
+        {/* Action buttons — Tối ưu tuyệt đối cho mobile lẫn desktop */}
         <div className="d-flex flex-column flex-sm-row gap-1 gap-sm-2 mt-auto pt-2 border-top border-secondary-subtle">
           <div className="d-flex gap-1 w-100 w-sm-auto justify-content-between">
             <Button
@@ -116,32 +120,37 @@ function DrinkCard({ drink, onAddToOrder }) {
               size="sm"
               onClick={toggleWishlist}
               title={isWishlisted ? 'Xóa khỏi yêu thích' : 'Thêm vào yêu thích'}
-              className="px-2"
+              className="heart-animated px-2 rounded-pill shadow-sm d-flex align-items-center justify-content-center"
+              style={{ minWidth: '36px' }}
             >
               {isWishlisted ? '❤️' : '🤍'}
             </Button>
             <Button
-              variant="outline-dark"
+              variant="outline-secondary"
               size="sm"
               as={Link}
               to={`/menu/${drink.id}`}
-              className="flex-grow-1 flex-sm-grow-0 text-truncate px-2"
+              className="flex-grow-1 flex-sm-grow-0 text-truncate px-3 rounded-pill font-heading small fw-medium"
             >
               Chi tiết
             </Button>
           </div>
-          <Button
-            variant="dark"
-            size="sm"
-            className="w-100 flex-sm-grow-1 mt-1 mt-sm-0 text-truncate fw-semibold"
+          <button
+            type="button"
+            className={`w-100 flex-sm-grow-1 mt-1 mt-sm-0 text-truncate font-heading small ${
+              isOutOfStock ? 'btn btn-secondary rounded-pill disabled' : 'btn-premium-amber'
+            }`}
+            style={{ padding: '6px 14px', fontSize: '0.85rem' }}
             onClick={() => {
-              if (onAddToOrder) onAddToOrder(drink)
-              addToCart(drink)
+              if (!isOutOfStock) {
+                if (onAddToOrder) onAddToOrder(drink)
+                addToCart(drink)
+              }
             }}
             disabled={isOutOfStock}
           >
             {isOutOfStock ? 'Hết hàng' : '+ Gọi món'}
-          </Button>
+          </button>
         </div>
       </Card.Body>
     </Card>

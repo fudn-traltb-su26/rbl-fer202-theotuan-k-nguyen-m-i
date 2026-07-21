@@ -16,9 +16,9 @@ function HomePage({ onAddToOrder }) {
       <Banner />
 
       <SectionWrapper
-        title="Danh mục thực đơn"
-        subtitle="Các nhóm đồ uống đang kinh doanh"
-        backgroundColor="#fff8e1"
+        title="Khám Phá Danh Mục"
+        subtitle="Các nhóm thức uống đặc trưng được tinh tuyển theo phong cách riêng"
+        backgroundColor="var(--cafe-surface)"
       >
         <CategoryList
           categories={categories}
@@ -28,8 +28,8 @@ function HomePage({ onAddToOrder }) {
       </SectionWrapper>
 
       <SectionWrapper
-        title="Món nổi bật"
-        subtitle="Những món được khách hàng gọi nhiều"
+        title="Món Nổi Bật & Được Yêu Thích Nhất"
+        subtitle="Những hương vị nguyên bản được khách hàng ưa chuộng và đánh giá cao nhất tuần này"
       >
         <DrinkGrid drinks={featuredDrinks} onAddToOrder={onAddToOrder} />
       </SectionWrapper>

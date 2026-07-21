@@ -1,9 +1,70 @@
-/* =============================
-   CafeHub — Global Styles & Responsive Polish
-   Ghi đè index.css mặc định của Vite
-   ============================= */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
 
-/* Reset layout Vite mặc định */
+/* ====================================================
+   CafeHub — Premium Design System & Core Tokens
+   Warm Coffee & Amber Gold Aesthetics
+   ==================================================== */
+
+:root {
+  /* Colors - Light Mode (Warm Cream & Rich Coffee) */
+  --cafe-bg: #faf7f2;
+  --cafe-text: #2c1810;
+  --cafe-text-muted: #78645d;
+  
+  --cafe-primary: #3e2723;
+  --cafe-primary-hover: #4e342e;
+  --cafe-secondary: #6d4c41;
+  
+  --cafe-accent: #ffb300;
+  --cafe-accent-hover: #ffa000;
+  --cafe-accent-glow: rgba(255, 179, 0, 0.4);
+  
+  --cafe-card-bg: #ffffff;
+  --cafe-card-border: rgba(62, 39, 35, 0.08);
+  --cafe-surface: #f4eee6;
+  
+  --cafe-shadow-sm: 0 4px 12px rgba(62, 39, 35, 0.05);
+  --cafe-shadow-md: 0 8px 24px rgba(62, 39, 35, 0.08);
+  --cafe-shadow-lg: 0 16px 36px rgba(62, 39, 35, 0.12);
+  --cafe-shadow-glow: 0 0 20px rgba(255, 179, 0, 0.35);
+  
+  --cafe-radius-sm: 10px;
+  --cafe-radius-md: 16px;
+  --cafe-radius-lg: 24px;
+  --cafe-radius-pill: 50rem;
+  
+  --cafe-font-heading: 'Outfit', sans-serif;
+  --cafe-font-body: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Dark Mode Tokens (Deep Midnight Coffee) */
+[data-bs-theme="dark"] {
+  --cafe-bg: #11131a;
+  --cafe-text: #f1ebd9;
+  --cafe-text-muted: #a19888;
+  
+  --cafe-primary: #ffb300;
+  --cafe-primary-hover: #ffd54f;
+  --cafe-secondary: #8d6e63;
+  
+  --cafe-accent: #ffb300;
+  --cafe-accent-hover: #ffa000;
+  --cafe-accent-glow: rgba(255, 179, 0, 0.3);
+  
+  --cafe-card-bg: #1c1f2b;
+  --cafe-card-border: rgba(255, 255, 255, 0.07);
+  --cafe-surface: #242838;
+  
+  --cafe-shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.3);
+  --cafe-shadow-md: 0 8px 24px rgba(0, 0, 0, 0.45);
+  --cafe-shadow-lg: 0 16px 36px rgba(0, 0, 0, 0.6);
+  --cafe-shadow-glow: 0 0 25px rgba(255, 179, 0, 0.25);
+
+  --bs-body-bg: var(--cafe-bg);
+  --bs-body-color: var(--cafe-text);
+}
+
+/* --- Base Layout & Reset --- */
 #root {
   width: 100%;
   max-width: 100%;
@@ -15,79 +76,245 @@
   flex-direction: column;
 }
 
-/* main chiếm phần còn lại để footer luôn ở dưới */
 main {
   flex: 1;
 }
 
-/* Dark mode — Bootstrap dùng data-bs-theme trên <html> */
-[data-bs-theme="dark"] {
-  --bs-body-bg: #12141d;
-  --bs-body-color: #e2e8f0;
-}
-
-[data-bs-theme="dark"] .bg-light,
-[data-bs-theme="dark"] section {
-  background-color: #1a1e2e !important;
-  color: #e2e8f0;
-}
-
-[data-bs-theme="dark"] .card {
-  background-color: #23283b !important;
-  border-color: #333a54 !important;
-  color: #f1f5f9;
-}
-
-[data-bs-theme="dark"] .text-muted {
-  color: #94a3b8 !important;
-}
-
-/* Smooth scroll & Tap highlights */
 html {
   scroll-behavior: smooth;
   -webkit-tap-highlight-color: transparent;
 }
 
 body {
+  font-family: var(--cafe-font-body);
+  background-color: var(--cafe-bg) !important;
+  color: var(--cafe-text) !important;
   padding-top: 0;
   overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Card hover & transition */
-.card {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+h1, h2, h3, h4, h5, h6, .navbar-brand, .font-heading {
+  font-family: var(--cafe-font-heading);
+  letter-spacing: -0.02em;
 }
 
-/* --- Responsive Helpers cho Mobile View --- */
+/* --- Glassmorphism & Header --- */
+.glass-header {
+  background: rgba(255, 255, 255, 0.82) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--cafe-card-border);
+  transition: all 0.3s ease;
+}
 
-/* Responsive ảnh DrinkCard: trên mobile (xs=2) chiều cao gọn lại để thẻ cân đối */
+[data-bs-theme="dark"] .glass-header {
+  background: rgba(28, 31, 43, 0.85) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* --- Premium Card System --- */
+.premium-card {
+  background-color: var(--cafe-card-bg) !important;
+  border: 1px solid var(--cafe-card-border) !important;
+  border-radius: var(--cafe-radius-md) !important;
+  box-shadow: var(--cafe-shadow-sm) !important;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, border-color 0.3s ease !important;
+  overflow: hidden;
+}
+
+.premium-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--cafe-shadow-lg) !important;
+  border-color: rgba(255, 179, 0, 0.35) !important;
+}
+
+/* Image Zoom on Card Hover */
+.zoom-wrapper {
+  overflow: hidden;
+  position: relative;
+  border-top-left-radius: var(--cafe-radius-md);
+  border-top-right-radius: var(--cafe-radius-md);
+}
+
 .drink-card-img {
-  height: 180px;
+  height: 190px;
   object-fit: cover;
   width: 100%;
+  transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.premium-card:hover .drink-card-img {
+  transform: scale(1.08);
 }
 
 @media (max-width: 575.98px) {
   .drink-card-img {
-    height: 135px !important;
+    height: 140px !important;
   }
-  
-  /* Giảm size chữ tiêu đề thẻ trên màn nhỏ */
   .mobile-fs-sm {
     font-size: 0.85rem !important;
   }
-  
-  /* Bảng trên mobile cho phép cuộn mượt */
-  .table-responsive {
-    -webkit-overflow-scrolling: touch;
-  }
 }
 
-/* Gradient Banner chất lượng cao */
-.banner-gradient {
-  background: linear-gradient(135deg, #1f1107 0%, #3e2723 50%, #6d4c41 100%);
+/* --- Category Card/Pill Transitions --- */
+.category-card {
+  background-color: var(--cafe-card-bg) !important;
+  border: 1.5px solid var(--cafe-card-border) !important;
+  border-radius: var(--cafe-radius-md) !important;
+  box-shadow: var(--cafe-shadow-sm) !important;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
-[data-bs-theme="dark"] .banner-gradient {
-  background: linear-gradient(135deg, #0d0703 0%, #201311 50%, #3e2723 100%);
+.category-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  border-color: var(--cafe-accent) !important;
+  box-shadow: var(--cafe-shadow-md) !important;
+}
+
+.category-card.active-category {
+  background: linear-gradient(135deg, #ffb300 0%, #ff8f00 100%) !important;
+  border-color: #ff8f00 !important;
+  box-shadow: var(--cafe-shadow-glow) !important;
+  color: #1a0f00 !important;
+}
+
+.category-card.active-category .text-muted {
+  color: #2c1810 !important;
+}
+
+/* --- Hero Banner Aesthetics --- */
+.banner-hero {
+  background: radial-gradient(circle at 80% 20%, rgba(255, 179, 0, 0.15) 0%, transparent 40%),
+              linear-gradient(135deg, #1f1107 0%, #321e18 45%, #4e342e 100%);
+  color: #ffffff;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+[data-bs-theme="dark"] .banner-hero {
+  background: radial-gradient(circle at 80% 20%, rgba(255, 179, 0, 0.1) 0%, transparent 40%),
+              linear-gradient(135deg, #0b0c10 0%, #161923 50%, #2a1f1d 100%);
+}
+
+.stat-box {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--cafe-radius-md);
+  padding: 16px 20px;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.stat-box:hover {
+  transform: translateY(-3px);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* --- Buttons & Badges --- */
+.btn-premium-amber {
+  background: linear-gradient(135deg, #ffb300 0%, #ff8f00 100%);
+  color: #1a0f00 !important;
+  font-family: var(--cafe-font-heading);
+  font-weight: 700;
+  border: none;
+  border-radius: var(--cafe-radius-pill);
+  padding: 10px 24px;
+  box-shadow: var(--cafe-shadow-glow);
+  transition: all 0.25s ease;
+}
+
+.btn-premium-amber:hover {
+  background: linear-gradient(135deg, #ffc107 0%, #ffa000 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 0 28px rgba(255, 179, 0, 0.55);
+  color: #000 !important;
+}
+
+.btn-premium-dark {
+  background-color: var(--cafe-primary);
+  color: #fff !important;
+  font-family: var(--cafe-font-heading);
+  font-weight: 600;
+  border: none;
+  border-radius: var(--cafe-radius-pill);
+  padding: 8px 18px;
+  transition: all 0.2s ease;
+}
+
+.btn-premium-dark:hover {
+  background-color: var(--cafe-primary-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--cafe-shadow-md);
+}
+
+/* Micro animations */
+@keyframes heartPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.35); }
+  100% { transform: scale(1); }
+}
+
+.heart-animated {
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.heart-animated:active {
+  animation: heartPulse 0.3s ease;
+}
+
+/* --- Section Titles & Accent Bar --- */
+.section-title-box {
+  position: relative;
+  display: inline-block;
+}
+
+.section-title-box::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 48px;
+  height: 4px;
+  background: var(--cafe-accent);
+  border-radius: 2px;
+}
+
+/* --- Tables & Forms Polish --- */
+.premium-table {
+  background: var(--cafe-card-bg);
+  border-radius: var(--cafe-radius-md);
+  overflow: hidden;
+  box-shadow: var(--cafe-shadow-sm);
+  border: 1px solid var(--cafe-card-border);
+}
+
+.premium-table th {
+  font-family: var(--cafe-font-heading);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  padding: 14px 16px;
+}
+
+.premium-table td {
+  padding: 14px 16px;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--cafe-surface);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--cafe-secondary);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--cafe-primary);
 }
