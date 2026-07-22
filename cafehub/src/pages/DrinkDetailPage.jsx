@@ -1,17 +1,19 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Button, Container, Row, Col, Alert, Badge, Breadcrumb } from 'react-bootstrap'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import drinks from '../data/drinks'
 import { useCart } from '../context/CartContext'
 import useLocalStorage from '../hooks/useLocalStorage'
+import DrinkCustomizeModal from '../components/DrinkCustomizeModal'
+import ReviewSection from '../components/ReviewSection'
 
-function DrinkDetailPage({ onAddToOrder }) {
+function DrinkDetailPage() {
   const { id } = useParams()
   const navigate = useNavigate()
   const { addToCart } = useCart()
   const [wishlist, setWishlist] = useLocalStorage('cafehub_wishlist', [])
   const [added, setAdded] = useState(false)
-
+  const [showCustomize, setShowCustomize] = useState(false)
 
   const drink = drinks.find((item) => item.id === parseInt(id))
 
@@ -42,9 +44,16 @@ function DrinkDetailPage({ onAddToOrder }) {
     setWishlist((prev) => {
       const list = Array.isArray(prev) ? prev : []
       return list.includes(drink.id)
-        ? list.filter((id) => id !== drink.id)
+        ? list.filter((wId) => wId !== drink.id)
         : [...list, drink.id]
     })
+  }
+
+  const handleCustomizedAdd = (cartItem) => {
+    addToCart(cartItem)
+    setAdded(true)
+    window.dispatchEvent(new CustomEvent('cart-item-added', { detail: cartItem }))
+    setTimeout(() => setAdded(false), 1600)
   }
 
   return (
@@ -151,23 +160,15 @@ function DrinkDetailPage({ onAddToOrder }) {
               }`}
               style={{ padding: '12px 28px' }}
               onClick={() => {
-                if (!isOutOfStock) {
-                  if (onAddToOrder) onAddToOrder(drink)
-                  addToCart(drink)
-                  setAdded(true)
-                  window.dispatchEvent(
-                    new CustomEvent('cart-item-added', { detail: drink })
-                  )
-                  setTimeout(() => setAdded(false), 1600)
-                }
+                if (!isOutOfStock) setShowCustomize(true)
               }}
               disabled={isOutOfStock}
             >
               {isOutOfStock
                 ? 'Hết hàng'
                 : added
-                ? '✓ Đã Thêm (+1 Phần)'
-                : '+ Thêm Vào Phiếu & Giỏ Hàng'}
+                ? '✓ Đã Thêm Vào Giỏ'
+                : '☕ Tuỳ Chọn & Gọi Món'}
             </button>
 
             <Button
@@ -181,6 +182,17 @@ function DrinkDetailPage({ onAddToOrder }) {
           </div>
         </Col>
       </Row>
+
+      {/* v2.0: Đánh giá & Bình luận */}
+      <ReviewSection drinkId={drink.id} drinkName={drink.name} />
+
+      {/* v2.0: Modal tuỳ biến món */}
+      <DrinkCustomizeModal
+        show={showCustomize}
+        onHide={() => setShowCustomize(false)}
+        drink={drink}
+        onAddToCart={handleCustomizedAdd}
+      />
     </Container>
   )
 }

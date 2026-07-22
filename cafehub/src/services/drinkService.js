@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-// Tuần 8: Axios instance với baseURL json-server
+// Tuần 8 & v3.2: Axios instance kết nối với json-server (cổng 3001)
 const api = axios.create({
   baseURL: 'http://localhost:3001',
   timeout: 5000,
@@ -18,8 +18,6 @@ api.interceptors.response.use(
     return Promise.reject(new Error(msg))
   }
 )
-
-// --- Tuần 8: 5 hàm CRUD cho Drinks ---
 
 /** Lấy tất cả đồ uống (hỗ trợ filter params: q, categoryId, featured...) */
 export const getDrinks = async (params = {}) => {

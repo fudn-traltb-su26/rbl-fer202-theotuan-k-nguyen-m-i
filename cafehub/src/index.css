@@ -318,3 +318,40 @@ h1, h2, h3, h4, h5, h6, .navbar-brand, .font-heading {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--cafe-primary);
 }
+
+/* ====================================================
+   CafeHub v2.0 — Custom Component Styles
+   ==================================================== */
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.transition-all {
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.transition-transform {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.transition-transform:hover {
+  transform: scale(1.03);
+}
+
+/* Kanban column scrollbar */
+.kanban-col-scroll::-webkit-scrollbar {
+  width: 5px;
+}
+.kanban-col-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.kanban-col-scroll::-webkit-scrollbar-thumb {
+  background: var(--cafe-card-border);
+  border-radius: 10px;
+}
+
+/* Checkbox and Radio in Customize Modal */
+.form-check-input:checked {
+  background-color: #ffb300 !important;
+  border-color: #ffb300 !important;
+}
+

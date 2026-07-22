@@ -1,14 +1,18 @@
 import { useState, useEffect } from 'react'
-import { Navbar, Nav, Container, Badge, Button } from 'react-bootstrap'
+import { Navbar, Nav, Container, Badge, Button, Dropdown } from 'react-bootstrap'
 import { NavLink } from 'react-router-dom'
 
 // Tuần 7: useCart + useTheme
 import { useCart } from '../context/CartContext'
 import { useTheme } from '../context/ThemeContext'
+import { useAuth } from '../context/AuthContext'
+import { useNavigate } from 'react-router-dom'
 
 function Header() {
+  const navigate = useNavigate()
   const { itemCount } = useCart()
   const { theme, toggleTheme } = useTheme()
+  const { auth, switchRole, isAdmin } = useAuth()
   const [expanded, setExpanded] = useState(false)
   const [pulsing, setPulsing] = useState(false)
 
@@ -101,30 +105,44 @@ function Header() {
             >
               🧋 Danh sách món
             </Nav.Link>
+
+            {/* Links cho Customer */}
+            {!isAdmin && (
+              <Nav.Link
+                as={NavLink}
+                to="/my-orders"
+                onClick={closeMenu}
+                className="py-2 py-lg-1 px-3 rounded-pill transition-all"
+              >
+                📋 Đơn của tôi
+              </Nav.Link>
+            )}
+
+            {/* Links cho Admin */}
+            {isAdmin && (
+              <>
+                <Nav.Link
+                  as={NavLink}
+                  to="/admin/orders"
+                  onClick={closeMenu}
+                  className="py-2 py-lg-1 px-3 rounded-pill transition-all"
+                >
+                  👨‍🍳 Bảng đơn bếp
+                </Nav.Link>
+                <Nav.Link
+                  as={NavLink}
+                  to="/admin/drinks"
+                  onClick={closeMenu}
+                  className="py-2 py-lg-1 px-3 rounded-pill transition-all"
+                >
+                  ⚙️ Quản lý thực đơn
+                </Nav.Link>
+              </>
+            )}
           </Nav>
 
           {/* Nav Links — phải */}
           <Nav className="align-items-start align-items-lg-center gap-2 mt-2 mt-lg-0 pt-2 pt-lg-0 border-top border-lg-0 border-secondary-subtle">
-            {/* Admin */}
-            <Nav.Link
-              as={NavLink}
-              to="/admin/drinks"
-              onClick={closeMenu}
-              className="py-2 py-lg-1 px-3 rounded-pill transition-all small"
-            >
-              ⚙️ Quản lý
-            </Nav.Link>
-
-            {/* Phiếu gọi món */}
-            <Nav.Link
-              as={NavLink}
-              to="/order"
-              onClick={closeMenu}
-              className="py-2 py-lg-1 px-3 rounded-pill transition-all small"
-            >
-              🧾 Phiếu gọi món
-            </Nav.Link>
-
             {/* Giỏ hàng — Tuần 7: useCart */}
             <Nav.Link
               as={NavLink}
@@ -148,6 +166,34 @@ function Header() {
                 {itemCount}
               </Badge>
             </Nav.Link>
+
+            {/* Role Switcher */}
+            <Dropdown>
+              <Dropdown.Toggle
+                variant={isAdmin ? 'outline-danger' : 'outline-secondary'}
+                size="sm"
+                className="rounded-pill px-3 py-2 font-heading fw-medium d-flex align-items-center gap-1"
+              >
+                {isAdmin ? '👨‍🍳' : '👤'} {auth.username}
+              </Dropdown.Toggle>
+              <Dropdown.Menu className="rounded-3 shadow-lg border-0 mt-2">
+                <Dropdown.Header className="font-heading small text-uppercase">Chuyển vai trò</Dropdown.Header>
+                <Dropdown.Item
+                  className="font-heading small d-flex align-items-center gap-2"
+                  active={!isAdmin}
+                  onClick={() => { switchRole('customer'); closeMenu(); navigate('/') }}
+                >
+                  👤 Khách hàng
+                </Dropdown.Item>
+                <Dropdown.Item
+                  className="font-heading small d-flex align-items-center gap-2"
+                  active={isAdmin}
+                  onClick={() => { switchRole('admin'); closeMenu(); navigate('/admin/orders') }}
+                >
+                  👨‍🍳 Barista / Quản lý
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
 
             {/* Tuần 7: Dark/Light mode toggle */}
             <Button

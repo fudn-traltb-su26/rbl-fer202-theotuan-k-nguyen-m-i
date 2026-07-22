@@ -1,5 +1,5 @@
-import { lazy, Suspense, useState } from 'react'
-import { Routes, Route } from 'react-router-dom'
+import { lazy, Suspense } from 'react'
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import { Spinner, Container } from 'react-bootstrap'
 
 import Header from './components/Header'
@@ -8,17 +8,17 @@ import ProtectedRoute from './components/ProtectedRoute'
 import CartNotification from './components/CartNotification'
 
 // Tuần 10: React.lazy — code splitting theo route
-// Mỗi page chỉ được tải khi user navigate đến route đó (không load trước)
 const HomePage = lazy(() => import('./pages/HomePage'))
 const MenuPage = lazy(() => import('./pages/MenuPage'))
 const DrinkDetailPage = lazy(() => import('./pages/DrinkDetailPage'))
 const DrinkListPage = lazy(() => import('./pages/DrinkListPage'))
-const OrderPage = lazy(() => import('./pages/OrderPage'))
 const CartPage = lazy(() => import('./pages/CartPage'))
+const MyOrdersPage = lazy(() => import('./pages/MyOrdersPage'))
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'))
 const DrinkManagePage = lazy(() => import('./pages/admin/DrinkManagePage'))
+const OrderManagePage = lazy(() => import('./pages/admin/OrderManagePage'))
 
-// Loading fallback — hiển thị khi chunk đang được tải
+// Loading fallback
 function PageLoader() {
   return (
     <Container
@@ -33,86 +33,56 @@ function PageLoader() {
   )
 }
 
-// isAdmin: Tuần 6 ProtectedRoute — set true để test admin page
-const IS_ADMIN = true
-
 function App() {
-  // --- State Tuần 4: Giỏ hàng / Phiếu gọi món ---
-  // (Tuần 7 chuyển sang CartContext cho useCart();
-  //  Tuần 10: có thể migrate sang Redux store/cartSlice.js)
-  const [orderItems, setOrderItems] = useState([])
-
-  const handleAddToOrder = (drink) => {
-    setOrderItems((prev) => {
-      const existing = prev.find((i) => i.id === drink.id)
-      if (existing) {
-        return prev.map((i) =>
-          i.id === drink.id ? { ...i, quantity: i.quantity + 1 } : i
-        )
-      }
-      return [...prev, { ...drink, quantity: 1 }]
-    })
-  }
-
-  const handleUpdateQuantity = (id, quantity) => {
-    setOrderItems((prev) =>
-      prev
-        .map((i) => (i.id === id ? { ...i, quantity: Math.max(0, quantity) } : i))
-        .filter((i) => i.quantity > 0)
-    )
-  }
-
-  const handleRemove = (id) => {
-    setOrderItems((prev) => prev.filter((i) => i.id !== id))
-  }
+  const location = useLocation()
+  // v3.0: Trang chuyên biệt Barista KDS & Thu Ngân ẩn Header/Footer của web khách hàng
+  const isDedicatedStaffPage = location.pathname.startsWith('/admin/orders')
 
   return (
     <>
-      {/* Header — Tuần 7: useCart() context, không cần props */}
-      <Header />
-      <CartNotification />
+      {!isDedicatedStaffPage && <Header />}
+      {!isDedicatedStaffPage && <CartNotification />}
 
-      <main>
-        {/* Tuần 10: Suspense bọc quanh Routes để hiển thị fallback khi lazy load */}
+      <main className={isDedicatedStaffPage ? 'h-100 d-flex flex-column' : ''}>
         <Suspense fallback={<PageLoader />}>
           <Routes>
             {/* Trang chủ */}
-            <Route path="/" element={<HomePage onAddToOrder={handleAddToOrder} />} />
+            <Route path="/" element={<HomePage />} />
 
             {/* Thực đơn */}
-            <Route path="/menu" element={<MenuPage onAddToOrder={handleAddToOrder} />} />
+            <Route path="/menu" element={<MenuPage />} />
 
             {/* Chi tiết đồ uống — Tuần 6: useParams */}
-            <Route
-              path="/menu/:id"
-              element={<DrinkDetailPage onAddToOrder={handleAddToOrder} />}
-            />
+            <Route path="/menu/:id" element={<DrinkDetailPage />} />
 
             {/* Danh sách đầy đủ */}
             <Route path="/drinks" element={<DrinkListPage />} />
 
-            {/* Phiếu gọi món tạm */}
-            <Route
-              path="/order"
-              element={
-                <OrderPage
-                  orderItems={orderItems}
-                  onUpdateQuantity={handleUpdateQuantity}
-                  onRemove={handleRemove}
-                  onClearOrder={() => setOrderItems([])}
-                />
-              }
-            />
-
             {/* Giỏ hàng — Tuần 7: CartContext */}
             <Route path="/cart" element={<CartPage />} />
+
+            {/* v2.0: Đơn hàng của tôi */}
+            <Route path="/my-orders" element={<MyOrdersPage />} />
+
+            {/* v2.0: Redirect route cũ /order sang /cart */}
+            <Route path="/order" element={<Navigate to="/cart" replace />} />
 
             {/* Admin — Tuần 6: ProtectedRoute */}
             <Route
               path="/admin/drinks"
               element={
-                <ProtectedRoute isAllowed={IS_ADMIN} redirectTo="/">
+                <ProtectedRoute>
                   <DrinkManagePage />
+                </ProtectedRoute>
+              }
+            />
+
+            {/* v3.0: Staff Portal — Thu Ngân POS & Barista KDS */}
+            <Route
+              path="/admin/orders"
+              element={
+                <ProtectedRoute>
+                  <OrderManagePage />
                 </ProtectedRoute>
               }
             />
@@ -123,7 +93,7 @@ function App() {
         </Suspense>
       </main>
 
-      <Footer />
+      {!isDedicatedStaffPage && <Footer />}
     </>
   )
 }

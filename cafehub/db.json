@@ -1,14 +1,39 @@
 {
   "categories": [
-    { "id": 1, "name": "Cà phê", "icon": "☕", "bookCount": 6 },
-    { "id": 2, "name": "Trà sữa", "icon": "🧋", "bookCount": 6 },
-    { "id": 3, "name": "Trà trái cây", "icon": "🍹", "bookCount": 6 },
-    { "id": 4, "name": "Đá xay", "icon": "🥤", "bookCount": 6 },
-    { "id": 5, "name": "Nước ép", "icon": "🍊", "bookCount": 6 }
+    {
+      "id": "1",
+      "name": "Cà phê",
+      "icon": "☕",
+      "bookCount": 6
+    },
+    {
+      "id": "2",
+      "name": "Trà sữa",
+      "icon": "🧋",
+      "bookCount": 6
+    },
+    {
+      "id": "3",
+      "name": "Trà trái cây",
+      "icon": "🍹",
+      "bookCount": 6
+    },
+    {
+      "id": "4",
+      "name": "Đá xay",
+      "icon": "🥤",
+      "bookCount": 6
+    },
+    {
+      "id": "5",
+      "name": "Nước ép",
+      "icon": "🍊",
+      "bookCount": 6
+    }
   ],
   "drinks": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Cà Phê Đen",
       "description": "Cà phê nguyên chất đậm đà, đắng nhẹ và thơm nồng — lựa chọn của những người yêu cà phê truyền thống.",
       "price": 25000,
@@ -21,7 +46,7 @@
       "image": "https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?auto=format&fit=crop&w=600&q=80"
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Cà Phê Sữa",
       "description": "Cà phê truyền thống kết hợp sữa đặc thơm béo, hòa quyện tạo vị ngọt dịu đặc trưng.",
       "price": 30000,
@@ -34,7 +59,7 @@
       "image": "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=600&q=80"
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Bạc Xỉu",
       "description": "Vị sữa béo nhẹ hòa quyện cùng cà phê — ít đắng hơn cà phê sữa, thích hợp cho người mới uống.",
       "price": 35000,
@@ -47,7 +72,7 @@
       "image": "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=600&q=80"
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "Americano",
       "description": "Espresso pha loãng với nước nóng, vị đậm nhưng nhẹ hơn espresso thuần túy.",
       "price": 40000,
@@ -60,7 +85,7 @@
       "image": "https://images.unsplash.com/photo-1551030173-122aabc4489c?auto=format&fit=crop&w=600&q=80"
     },
     {
-      "id": 5,
+      "id": "5",
       "name": "Latte",
       "description": "Espresso kết hợp sữa hấp nóng và một lớp bọt sữa mịn màng — thanh tế và béo ngậy.",
       "price": 45000,
@@ -73,7 +98,7 @@
       "image": "https://images.unsplash.com/photo-1570968915860-54d5c301fa9f?auto=format&fit=crop&w=600&q=80"
     },
     {
-      "id": 6,
+      "id": "6",
       "name": "Cappuccino",
       "description": "Sự kết hợp hoàn hảo giữa espresso, sữa hấp và bọt sữa — thơm béo và đậm đà.",
       "price": 45000,
@@ -86,7 +111,7 @@
       "image": "https://images.unsplash.com/photo-1534778101976-62847782c213?auto=format&fit=crop&w=600&q=80"
     },
     {
-      "id": 7,
+      "id": "7",
       "name": "Trà Sữa Trân Châu",
       "description": "Trà sữa thơm béo kèm trân châu đen dai ngon — thức uống quốc dân không thể bỏ qua.",
       "price": 45000,
@@ -99,7 +124,7 @@
       "image": "https://images.unsplash.com/photo-1558857563-b3773e7343e0?auto=format&fit=crop&w=600&q=80"
     },
     {
-      "id": 8,
+      "id": "8",
       "name": "Trà Sữa Matcha",
       "description": "Matcha Nhật Bản thơm ngậy hòa quyện với sữa tươi — vị đắng nhẹ đặc trưng rất khác biệt.",
       "price": 50000,
@@ -112,7 +137,7 @@
       "image": "https://images.unsplash.com/photo-1536256263959-770b48d82b0a?auto=format&fit=crop&w=600&q=80"
     },
     {
-      "id": 9,
+      "id": "9",
       "name": "Trà Sữa Socola",
       "description": "Trà sữa với vị socola đậm đà, ngọt thơm — lý tưởng cho người thích hương vị ngọt ngào.",
       "price": 50000,
@@ -125,7 +150,7 @@
       "image": "https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&w=600&q=80"
     },
     {
-      "id": 10,
+      "id": "10",
       "name": "Trà Sữa Dâu",
       "description": "Trà sữa thơm với vị dâu tươi tự nhiên — màu hồng bắt mắt, vị ngọt thanh.",
       "price": 48000,
@@ -138,7 +163,7 @@
       "image": "https://images.unsplash.com/photo-1579954115545-a95591f28bfc?auto=format&fit=crop&w=600&q=80"
     },
     {
-      "id": 11,
+      "id": "11",
       "name": "Trà Sữa Khoai Môn",
       "description": "Vị khoai môn béo bùi hòa quyện sữa thơm — thức uống hot trend được giới trẻ yêu thích.",
       "price": 50000,
@@ -151,7 +176,7 @@
       "image": "https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=600&q=80"
     },
     {
-      "id": 12,
+      "id": "12",
       "name": "Trà Sữa Olong",
       "description": "Olong hảo hạng kết hợp sữa tươi — vị trà đậm, hương thơm dịu nhẹ, thanh tao.",
       "price": 47000,
@@ -164,7 +189,7 @@
       "image": "https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=600&q=80"
     },
     {
-      "id": 13,
+      "id": "13",
       "name": "Trà Đào Cam Sả",
       "description": "Trà trái cây thanh mát, thơm mùi sả — sự kết hợp hoàn hảo giữa đào, cam và sả tươi.",
       "price": 45000,
@@ -177,7 +202,7 @@
       "image": "https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=600&q=80"
     },
     {
-      "id": 14,
+      "id": "14",
       "name": "Trà Vải",
       "description": "Trà vải thơm mát với vị ngọt tự nhiên của vải thiều — thanh tao và giải khát hoàn hảo.",
       "price": 42000,
@@ -190,7 +215,7 @@
       "image": "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=600&q=80"
     },
     {
-      "id": 15,
+      "id": "15",
       "name": "Trà Chanh",
       "description": "Trà chanh chua ngọt sảng khoái — thức uống giải nhiệt tuyệt vời ngày hè oi bức.",
       "price": 30000,
@@ -203,7 +228,7 @@
       "image": "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=600&q=80"
     },
     {
-      "id": 16,
+      "id": "16",
       "name": "Trà Dâu",
       "description": "Trà dâu tươi ngọt mát với màu đỏ hấp dẫn — vị chua ngọt tự nhiên từ dâu tây tươi.",
       "price": 45000,
@@ -216,7 +241,7 @@
       "image": "https://images.unsplash.com/photo-1595981267035-7b04ca84a82d?auto=format&fit=crop&w=600&q=80"
     },
     {
-      "id": 17,
+      "id": "17",
       "name": "Trà Xoài",
       "description": "Trà xoài thơm ngọt đậm đà — hương xoài chín tự nhiên hòa quyện với trà xanh mát lạnh.",
       "price": 45000,
@@ -229,7 +254,7 @@
       "image": "https://images.unsplash.com/photo-1621263764928-df1444c5e859?auto=format&fit=crop&w=600&q=80"
     },
     {
-      "id": 18,
+      "id": "18",
       "name": "Trà Tắc Mật Ong",
       "description": "Tắc tươi kết hợp mật ong nguyên chất — vị chua ngọt thanh mát, tốt cho sức khỏe.",
       "price": 35000,
@@ -242,7 +267,7 @@
       "image": "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=600&q=80"
     },
     {
-      "id": 19,
+      "id": "19",
       "name": "Chocolate Đá Xay",
       "description": "Socola đậm đà xay mịn với đá bào — béo ngậy, ngọt thơm, giải nhiệt cực đỉnh.",
       "price": 55000,
@@ -255,7 +280,7 @@
       "image": "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=600&q=80"
     },
     {
-      "id": 20,
+      "id": "20",
       "name": "Cookie Đá Xay",
       "description": "Cookie oreo xay nhuyễn với kem sữa mượt mà — vị ngọt béo không thể cưỡng được.",
       "price": 58000,
@@ -268,7 +293,7 @@
       "image": "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=600&q=80"
     },
     {
-      "id": 21,
+      "id": "21",
       "name": "Matcha Đá Xay",
       "description": "Matcha thơm béo, mát lạnh — đắng nhẹ đặc trưng của matcha hòa quyện với kem sữa.",
       "price": 55000,
@@ -281,7 +306,7 @@
       "image": "https://images.unsplash.com/photo-1536256263959-770b48d82b0a?auto=format&fit=crop&w=600&q=80"
     },
     {
-      "id": 22,
+      "id": "22",
       "name": "Caramel Đá Xay",
       "description": "Caramel ngọt thơm xay mịn với đá — hương caramel nồng nàn, vị ngọt ngào quyến rũ.",
       "price": 58000,
@@ -294,7 +319,7 @@
       "image": "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=600&q=80"
     },
     {
-      "id": 23,
+      "id": "23",
       "name": "Mocha Đá Xay",
       "description": "Cà phê mocha đậm đà kết hợp đá xay — vị đắng cà phê và ngọt socola hài hòa tuyệt vời.",
       "price": 60000,
@@ -307,7 +332,7 @@
       "image": "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=600&q=80"
     },
     {
-      "id": 24,
+      "id": "24",
       "name": "Oreo Đá Xay",
       "description": "Bánh oreo giòn tan xay nhuyễn với sữa lạnh — thơm béo, ngọt nhẹ, cực kỳ hấp dẫn.",
       "price": 58000,
@@ -320,7 +345,7 @@
       "image": "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=600&q=80"
     },
     {
-      "id": 25,
+      "id": "25",
       "name": "Nước Ép Cam",
       "description": "Cam tươi ép nguyên chất — giàu vitamin C, thanh mát và tốt cho sức đề kháng.",
       "price": 40000,
@@ -333,7 +358,7 @@
       "image": "https://images.unsplash.com/photo-1600271886742-f049cd451bba?auto=format&fit=crop&w=600&q=80"
     },
     {
-      "id": 26,
+      "id": "26",
       "name": "Nước Ép Dưa Hấu",
       "description": "Dưa hấu tươi ép lạnh — ngọt mát tự nhiên, giải khát tức thì trong ngày hè.",
       "price": 40000,
@@ -346,7 +371,7 @@
       "image": "https://images.unsplash.com/photo-1589984662646-e7b2e4962f18?auto=format&fit=crop&w=600&q=80"
     },
     {
-      "id": 27,
+      "id": "27",
       "name": "Nước Ép Táo",
       "description": "Táo xanh ép tươi nguyên chất — vị chua ngọt thanh tao, giàu dưỡng chất tốt cho sức khỏe.",
       "price": 45000,
@@ -359,7 +384,7 @@
       "image": "https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&w=600&q=80"
     },
     {
-      "id": 28,
+      "id": "28",
       "name": "Nước Ép Dứa",
       "description": "Dứa tươi ép lạnh — vị chua ngọt đặc trưng, thơm phức và giải nhiệt rất tốt.",
       "price": 42000,
@@ -372,7 +397,7 @@
       "image": "https://images.unsplash.com/photo-1587888637140-849b25d80ef9?auto=format&fit=crop&w=600&q=80"
     },
     {
-      "id": 29,
+      "id": "29",
       "name": "Nước Ép Cà Rốt",
       "description": "Cà rốt tươi ép nguyên chất — ngọt nhẹ tự nhiên, giàu beta-carotene tốt cho mắt.",
       "price": 45000,
@@ -385,7 +410,7 @@
       "image": "https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&w=600&q=80"
     },
     {
-      "id": 30,
+      "id": "30",
       "name": "Nước Ép Hỗn Hợp",
       "description": "Cocktail trái cây tươi hỗn hợp — cam, táo, cà rốt, dứa kết hợp tạo hương vị độc đáo.",
       "price": 50000,
@@ -397,5 +422,203 @@
       "status": "available",
       "image": "https://images.unsplash.com/photo-1600271886742-f049cd451bba?auto=format&fit=crop&w=600&q=80"
     }
-  ]
+  ],
+  "orders": [
+    {
+      "items": [
+        {
+          "drinkId": 5,
+          "name": "Matcha đá xay",
+          "image": "https://images.unsplash.com/photo-1536256263959-770b48d82b0a?auto=format&fit=crop&w=600&q=80",
+          "options": {
+            "size": "M",
+            "ice": "50%",
+            "sugar": "100%",
+            "toppings": [
+              "kem-cheese"
+            ],
+            "toppingLabels": [
+              "Kem Cheese"
+            ]
+          },
+          "finalPrice": 70000,
+          "quantity": 1
+        }
+      ],
+      "orderType": "takeaway",
+      "tableNumber": null,
+      "customerPhone": "á",
+      "customerName": "Khách hàng",
+      "subtotal": 70000,
+      "discount": 7000,
+      "couponCode": "WELCOME10",
+      "total": 63000,
+      "status": "completed",
+      "createdAt": "2026-07-22T06:37:12.737Z",
+      "updatedAt": "2026-07-22T06:58:32.848Z",
+      "id": "_oBGLQxuPSM"
+    },
+    {
+      "items": [
+        {
+          "drinkId": 2,
+          "name": "Bạc xỉu",
+          "image": "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=600&q=80",
+          "options": {
+            "size": "S",
+            "ice": "100%",
+            "sugar": "0%",
+            "toppings": [
+              "tran-chau-trang"
+            ],
+            "toppingLabels": [
+              "Trân châu trắng"
+            ]
+          },
+          "finalPrice": 40000,
+          "quantity": 4
+        }
+      ],
+      "orderType": "dine-in",
+      "tableNumber": "15",
+      "customerPhone": null,
+      "customerName": "Khách hàng",
+      "subtotal": 160000,
+      "discount": 0,
+      "couponCode": null,
+      "total": 160000,
+      "status": "completed",
+      "createdAt": "2026-07-22T06:45:54.417Z",
+      "updatedAt": "2026-07-22T06:58:33.514Z",
+      "id": "eWRwkDZwTNA"
+    },
+    {
+      "items": [
+        {
+          "drinkId": 2,
+          "name": "Bạc xỉu",
+          "image": "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=600&q=80",
+          "options": {
+            "size": "S",
+            "ice": "100%",
+            "sugar": "70%",
+            "toppings": [
+              "pudding",
+              "tran-chau-trang"
+            ],
+            "toppingLabels": [
+              "Pudding trứng",
+              "Trân châu trắng"
+            ]
+          },
+          "finalPrice": 48000,
+          "quantity": 2
+        }
+      ],
+      "orderType": "dine-in",
+      "tableNumber": "7",
+      "customerPhone": null,
+      "customerName": "Khách hàng",
+      "subtotal": 96000,
+      "discount": 0,
+      "couponCode": null,
+      "total": 96000,
+      "status": "completed",
+      "createdAt": "2026-07-22T06:54:08.684Z",
+      "updatedAt": "2026-07-22T06:58:31.422Z",
+      "id": "9XpTzHvIR08"
+    },
+    {
+      "items": [
+        {
+          "drinkId": 1,
+          "name": "Cà phê sữa",
+          "image": "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=600&q=80",
+          "options": {
+            "size": "S",
+            "ice": "0%",
+            "sugar": "70%",
+            "toppings": [
+              "pudding",
+              "thach-cafe"
+            ],
+            "toppingLabels": [
+              "Thạch cà phê",
+              "Pudding trứng"
+            ]
+          },
+          "finalPrice": 43000,
+          "quantity": 1
+        }
+      ],
+      "orderType": "dine-in",
+      "tableNumber": "15",
+      "customerPhone": null,
+      "customerName": "Khách hàng",
+      "subtotal": 43000,
+      "discount": 0,
+      "couponCode": null,
+      "total": 43000,
+      "status": "completed",
+      "createdAt": "2026-07-22T07:08:06.060Z",
+      "updatedAt": "2026-07-22T07:08:19.838Z",
+      "id": "9wW9v0lO2lY"
+    }
+  ],
+  "reviews": [],
+  "coupons": [
+    {
+      "id": "1",
+      "code": "WELCOME10",
+      "description": "Giảm 10% cho đơn hàng đầu tiên",
+      "discountType": "percent",
+      "discountValue": 10,
+      "minOrderAmount": 50000,
+      "maxDiscount": 30000,
+      "usageLimit": 100,
+      "usedCount": 12,
+      "active": true,
+      "expiresAt": "2026-12-31"
+    },
+    {
+      "id": "2",
+      "code": "CAFE20K",
+      "description": "Giảm trực tiếp 20.000đ cho đơn từ 80.000đ",
+      "discountType": "fixed",
+      "discountValue": 20000,
+      "minOrderAmount": 80000,
+      "maxDiscount": 20000,
+      "usageLimit": 50,
+      "usedCount": 5,
+      "active": true,
+      "expiresAt": "2026-12-31"
+    },
+    {
+      "id": "3",
+      "code": "SUMMER15",
+      "description": "Giảm 15% mùa hè — tối đa 25.000đ",
+      "discountType": "percent",
+      "discountValue": 15,
+      "minOrderAmount": 60000,
+      "maxDiscount": 25000,
+      "usageLimit": 200,
+      "usedCount": 45,
+      "active": true,
+      "expiresAt": "2026-09-30"
+    },
+    {
+      "id": "4",
+      "code": "EXPIRED01",
+      "description": "Mã đã hết hạn (dùng để test)",
+      "discountType": "percent",
+      "discountValue": 50,
+      "minOrderAmount": 0,
+      "maxDiscount": 100000,
+      "usageLimit": 10,
+      "usedCount": 10,
+      "active": false,
+      "expiresAt": "2025-01-01"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }
